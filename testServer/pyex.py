@@ -2,6 +2,7 @@
  
 import string,cgi,time
 from os import curdir
+from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
  
@@ -18,25 +19,41 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
   def do_GET(self):
         # Send response status code
         self.send_response(200)
- 
-        # Send headers
-        self.send_header('Content-type', "text/html")
-        self.end_headers()
+
+        # If public what it look like
+        x = curdir+"/public"+self.path
 
         # Controllers
-        print(self.path)
         if(self.path == "/home"):
+          # Send headers
+          self.send_header('Content-type', "text/html")
+          self.end_headers()
           f = open(curdir + "/home.html", 'rb')
           self.wfile.write(f.read())
           f.close()
         elif(self.path == "/login"):
+          # Send headers
+          self.send_header('Content-type', "text/html")
+          self.end_headers()
           f = open(curdir + "/login.html", 'rb')
           self.wfile.write(f.read())
           f.close()
         elif(self.path == "/haha"):
+          # Send headers
+          self.send_header('Content-type', "text/html")
+          self.end_headers()
           self.wfile.write(bytes("HAHA YOU SUCK :)", "utf-8"))
+
+        elif(Path(x).is_file() ):
+          #Check public folder for resources.
+          self.send_header('Content-type', "text/html")
+          self.end_headers()
+          self.wfile.write(bytes("IN PUBLIC FOLDER MANN", "utf-8"))
         else:
+          self.send_header('Content-type', "text/html")
+          self.end_headers()
           self.wfile.write(bytes("HAHA YOU SUCK :)", "utf-8"))
+
         return
 
 def run():
