@@ -12,6 +12,7 @@ from socketserver import ThreadingMixIn
 CURRENT_DIR = path.dirname(__file__)
 controller.index.public_directory = CURRENT_DIR+ "/public"
 controller.index.views_directory = CURRENT_DIR+ "/views"
+PORT = 3000
 
 # Multithreaded server declaration
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
@@ -40,7 +41,7 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
     elif(self.path == "/login"):
       controller.index.getLogin(self)
     elif(Path(x).is_file()):
-      controller.index.getPublic(self)
+      controller.index.getPublic(self, path_fix)
     else:
       controller.index.getError(self)
     
@@ -48,11 +49,11 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
     return
 
 def run():
-  print('starting server...')
+  print('Trying to start server')
   # Server settings
-  server_address = ('0.0.0.0', 3000)
+  server_address = ('0.0.0.0', PORT)
   httpd = ThreadingHTTPServer(server_address, testHTTPServer_RequestHandler)
-  print('running server...')
+  print('Serving on port %d...'%(PORT))
   httpd.serve_forever()
  
  
