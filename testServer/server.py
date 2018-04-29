@@ -1,13 +1,15 @@
 #!/usr/bin/env python
  
-import string,cgi,time
+
 import controller.index
 import controller.api
 
+import string,cgi,time
 from os import curdir, path
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
+import ssl
  
 CURRENT_DIR = path.dirname(__file__)
 controller.index.public_directory = CURRENT_DIR+ "/public"
@@ -53,6 +55,9 @@ def run():
   # Server settings
   server_address = ('0.0.0.0', PORT)
   httpd = ThreadingHTTPServer(server_address, testHTTPServer_RequestHandler)
+  #Add SSL, remove the line below if you have not created a certificate. This makes the connection secure using python's inbuilt openSSL wrappers
+  #TODO known issue is that the certificate is not verified by 3rd party, `so shows Your connection is not private`
+  httpd.socket = ssl.wrap_socket (httpd.socket, certfile= CURRENT_DIR+'/certificates/certificate.pem', server_side=True, keyfile=CURRENT_DIR+"/certificates/key.pem")
   print('Serving on port %d...'%(PORT))
   httpd.serve_forever()
  
