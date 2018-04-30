@@ -20,12 +20,16 @@ try:
 
         # Look for the response
         amount_received = 0
-        amount_expected = len(message)
-        
-        totdata = ""
+        amount_expected = len(bytes(message, 'utf-8'))
+        print(bytes(message, 'utf-8'))
+        first = True
         while amount_received < amount_expected:
             data = sock.recv(16)
-            totdata+=data.decode()
+            if(first):
+                first= False
+                totdata = data
+            else:
+                totdata+=data
             amount_received += len(data)
         print('received: ')
         print(totdata)

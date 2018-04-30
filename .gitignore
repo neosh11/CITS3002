@@ -7,5 +7,6 @@ certificates
 .vscode
 
 # question server files
+*.o
 *.out
-test
+server
