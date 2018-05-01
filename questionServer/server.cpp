@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
             break;
         case 0:
             close(server_fd);
-            action(client_fd);
+            action2(client_fd);
             exit(0);
             break;
         default:

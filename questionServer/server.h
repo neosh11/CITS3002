@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,7 +12,7 @@
 
 #define PORT 5000
 
-#define BUFFER_STD 16
+#define BUFFER_STD 4
 /*********FORM OF DATA FROM CLIENT **********
  *          [SIZE][TYPE][DATA][EOM]
  * SIZE = Size of data
@@ -35,3 +36,4 @@ void error(const char *msg);
 
 // on Listen
 void action(int sock);
+void action2(int sock);
