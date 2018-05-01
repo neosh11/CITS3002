@@ -12,7 +12,7 @@ FLAGS = -Wall -pedantic -Werror
 $(PROJECT) : $(OBJ)
 	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ)
 
-%.o : %.c $(HEADER)
+%.o : %.cpp $(HEADER)
 	$(G++) $(FLAGS) -c $<
 
 clean :

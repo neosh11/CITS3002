@@ -10,3 +10,4 @@ certificates
 *.o
 *.out
 server
+test
