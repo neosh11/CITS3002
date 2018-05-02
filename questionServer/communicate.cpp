@@ -1,4 +1,5 @@
 #include "server.h"
+#include <sstream>
 
 using namespace std;
 
@@ -112,12 +113,18 @@ void action2(int sock)
         smatch sm;
 
         if (regex_search(content, sm, r))
+        {
             if (sm[1] == "question" && sm[2] != "")
             {
                 int num = stoi(sm[2]);
                 if (0 < num && num < questionBank.getSize())
                     sent = sendContent(sock, questionBank.getQuestion(num).getQString(), 1);
             }
+            if (sm[1] == "neosh")
+            {
+                sent = sendContent(sock, secretMessage(1), 1);
+            }
+        }
     }
 
     if (!sent)

@@ -28,10 +28,8 @@ int QuestionBank::setFile(std::string file_name)
 
             if (regex_search(line, sm, r))
             {
-                cout << sm[1];
                 if (sm[1] == 'm')
                 {
-                    cout << "here\n";
                     std::vector<std::string> temp;
 
                     temp.push_back(sm[3]);

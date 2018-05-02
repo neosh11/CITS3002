@@ -11,3 +11,5 @@ certificates
 *.out
 server
 test
+
+hax.cpp

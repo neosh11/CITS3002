@@ -5,4 +5,6 @@
 
 extern QuestionBank questionBank;
 
+std::string secretMessage(int);
+
 #endif

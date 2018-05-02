@@ -10,7 +10,7 @@ G++ = g++
 FLAGS = -Wall -pedantic -Werror 
 
 $(PROJECT) : $(OBJ)
-	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ)
+	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ) olives
 
 %.o : %.cpp $(HEADER)
 	$(G++) $(FLAGS) -c $<
