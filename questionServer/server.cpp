@@ -5,6 +5,12 @@
 
 using namespace std;
 
+
+// Server variables+ functions
+void initServer();
+
+QuestionBank questionBank = QuestionBank("./resources/questions.data");
+
 int main(int argc, char *argv[])
 {
     //Kill Zombies!!
@@ -62,4 +68,9 @@ int main(int argc, char *argv[])
     }
     close(server_fd);
     return 0;
+}
+
+void initServer()
+{
+    // Put stuff here
 }

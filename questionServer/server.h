@@ -1,5 +1,12 @@
+#ifndef MY_SERVER_H
+#define MY_SERVER_H
+
+#include "globals.h"
+
 #include <iostream>
 #include <string.h>
+#include <cmath>
+#include <regex>
 
 #include <signal.h>
 #include <stdio.h>
@@ -10,8 +17,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h> //inet_ntoa
 
-#define PORT 5000
+#include "QuestionBank.h"
 
+#define PORT 5000
 #define BUFFER_STD 4
 /*********FORM OF DATA FROM CLIENT **********
  *          [SIZE][TYPE][DATA][EOM]
@@ -37,3 +45,5 @@ void error(const char *msg);
 // on Listen
 void action(int sock);
 void action2(int sock);
+
+#endif

@@ -3,8 +3,8 @@
  #Student number(s):   21959462, xxxxxxxx, 21958958
  
 PROJECT = server
-HEADER = stuff.h
-OBJ = server.o communicate.o
+HEADER = server.h globals.h QuestionBank.h
+OBJ = server.o communicate.o QuestionBank.o
 
 G++ = g++
 FLAGS = -Wall -pedantic -Werror 

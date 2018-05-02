@@ -2,11 +2,10 @@
 
 using namespace std;
 
-
-void printStr(char * str, int n){
-    for(int i = 0; i < n; i++){
+void printStr(char *str, int n)
+{
+    for (int i = 0; i < n; i++)
         cout << str[i];
-    }
 }
 void error(const char *msg)
 {
@@ -44,45 +43,83 @@ void action(int sock)
     cout << endl;
 }
 
+bool sendContent(int sock, string content, int type)
+{
+    int n;
+    int size = (content.length() + BUFFER_STD - 1) / BUFFER_STD;
+    char temp[BUFFER_STD];
+
+    if ((n = write(sock, &size, 4)) < 0)
+        error("ERROR writing to socket");
+
+    if ((n = write(sock, &type, 4)) < 0)
+        error("ERROR writing to socket");
+
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = 0; j < BUFFER_STD; j++)
+            temp[j] = content.at(i * BUFFER_STD + j);
+        if ((n = write(sock, temp, 4)) < 0)
+            error("ERROR writing to socket");
+    }
+    int start = (size - 1) * BUFFER_STD;
+    int remains = content.length() - (size - 1) * BUFFER_STD;
+    for (int j = 0; j < remains; j++)
+        temp[j] = content.at(j + start);
+    if ((n = write(sock, temp, remains)) < 0)
+        error("ERROR writing to socket");
+    return true;
+}
+
 void action2(int sock)
 {
     int n;
     int size_buff;
     int type_buff;
-
+    char content_buff[BUFFER_STD + 1];
+    string content = "";
     /********GET SIZE FROM HEADER********/
     if ((n = read(sock, &size_buff, 4)) < 0)
         error("ERROR reading from socket");
-    cout << size_buff << "\n";
 
-    if(n == 0){
+    if (n == 0)
+    {
         return;
     }
-    // if(n==0){}
-    if ((n = write(sock, &size_buff, n)) < 0)
-        error("ERROR writing to socket");
-    
-    if(n == 0){
-        return;
-    }
+
     /********GET TYPE FROM HEADER********/
     if ((n = read(sock, &type_buff, 4)) < 0)
         error("ERROR reading from socket");
-    cout << type_buff << "\n";
     // if(n==0){}
-    if ((n = write(sock, &type_buff, n)) < 0)
-        error("ERROR writing to socket");
 
-    char content_buff[BUFFER_STD];
     for (int i = 0; i < size_buff; i++)
     {
         bzero(content_buff, BUFFER_STD);
         if ((n = read(sock, content_buff, BUFFER_STD)) < 0)
             error("ERROR reading from socket"); //remove
-        printStr(content_buff, n);
+        content_buff[BUFFER_STD] = '\000';
+        content += content_buff;
+
         // if(n==0){}
-        if ((n = write(sock, content_buff, n)) < 0)
-            error("ERROR writing to socket"); //remove
     }
-    cout << endl;
+
+    bool sent = false;
+    // Ask for resource
+
+    if (type_buff == 1)
+    {
+        const regex r("(.*)#(.*)");
+        smatch sm;
+
+        if (regex_search(content, sm, r))
+            if (sm[1] == "question" && sm[2] != "")
+            {
+                int num = stoi(sm[2]);
+                if (0 < num && num < questionBank.getSize())
+                    sent = sendContent(sock, questionBank.getQuestion(num).getQString(), 1);
+            }
+    }
+
+    if (!sent)
+        sendContent(sock, "BAD REQUEST", 1);
 }
