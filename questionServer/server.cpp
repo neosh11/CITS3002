@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 // Server variables+ functions
 void initServer();
 
@@ -20,6 +19,12 @@ int main(int argc, char *argv[])
     int server_fd, client_fd;
     socklen_t client_len;
     struct sockaddr_in serv_addr, cli_addr;
+
+    /********OPENSSL CONTEXT***********/
+    SSL_CTX *ctx;
+    init_openssl();
+    ctx = create_context();
+    configure_context(ctx);
 
     cout << "Starting Server" << endl;
     /**************Create a Socket**************/
@@ -67,6 +72,9 @@ int main(int argc, char *argv[])
         close(client_fd);
     }
     close(server_fd);
+    
+    SSL_CTX_free(ctx);
+    cleanup_openssl();
     return 0;
 }
 

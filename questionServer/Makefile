@@ -10,7 +10,7 @@ G++ = g++
 FLAGS = -Wall -pedantic -Werror 
 
 $(PROJECT) : $(OBJ)
-	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ)
+	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ) /usr/local/opt/openssl/lib/libssl.a /usr/local/opt/openssl/lib/libcrypto.a
 
 %.o : %.cpp $(HEADER)
 	$(G++) $(FLAGS) -c $<

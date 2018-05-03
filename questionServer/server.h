@@ -17,6 +17,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h> //inet_ntoa
 
+
+
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+
+
+
 #include "QuestionBank.h"
 
 #define PORT 5000
@@ -47,3 +54,11 @@ void action(int sock);
 void action2(int sock);
 
 #endif
+
+
+/********OPENSSL*************/
+
+void init_openssl();
+void cleanup_openssl();
+SSL_CTX *create_context();
+void configure_context(SSL_CTX *ctx);
