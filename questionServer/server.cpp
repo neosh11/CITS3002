@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     ctx = create_context();
     configure_context(ctx);
 
+
     cout << "Starting Server" << endl;
     /**************Create a Socket**************/
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -56,23 +57,39 @@ int main(int argc, char *argv[])
 
         cout << "client: " << inet_ntoa(cli_addr.sin_addr) << ", port: " << ntohs(cli_addr.sin_port) << ", socket: " << client_fd << endl;
 
-        switch (fork())
-        {
-        case -1:
-            error("ERROR on fork");
-            break;
-        case 0:
-            close(server_fd);
-            action2(client_fd);
-            exit(0);
-            break;
-        default:
-            close(client_fd);
+        /************CREATED SSL***************/
+        SSL *ssl = NULL;
+        ssl = SSL_new(ctx);
+        SSL_set_fd(ssl, client_fd);
+
+        const char reply[] = "test\n";
+
+        if (SSL_accept(ssl) <= 0) {
+            cout << "fail at accept SSL\n";
+            ERR_print_errors_fp(stderr);
         }
+
+        else {
+            SSL_write(ssl, reply, strlen(reply));
+        }
+
+        // switch (fork())
+        // {
+        // case -1:
+        //     error("ERROR on fork");
+        //     break;
+        // case 0:
+        //     close(server_fd);
+        //     action2(client_fd);
+        //     exit(0);
+        //     break;
+        // default:
+        //     close(client_fd);
+        // }
         close(client_fd);
     }
     close(server_fd);
-    
+
     SSL_CTX_free(ctx);
     cleanup_openssl();
     return 0;
