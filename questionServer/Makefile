@@ -4,9 +4,9 @@
  
 PROJECT = server
 HEADER = server.h globals.h QuestionBank.h
-OBJ = server.o communicate.o encrypt.o QuestionBank.o
+OBJ = server.o communicate.o encrypt.o QuestionBank.o serverImp.o
 
-G++ = g++
+G++ = g++ -std=c++11
 FLAGS = -Wall -pedantic -Werror 
 OPENSSL = -L/usr/local/lib -lssl -lcrypto
 

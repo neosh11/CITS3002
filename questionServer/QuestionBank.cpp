@@ -58,7 +58,7 @@ string QuestionBank::getFileName()
 
 Question QuestionBank::getQuestion(int n)
 {
-    if (n >= 0 && n < questions.size())
+    if (n >= 0 && (unsigned int)n < questions.size())
         return questions[n];
     else throw out_of_range("Index out of bounds!");
 }

@@ -25,8 +25,13 @@
 
 
 #include "QuestionBank.h"
+/** @file */ 
 
+///The default port the Server runs on if no port specified
 #define PORT 5000
+
+///The size of 1 piece of content
+/** The content needs to be split into pieces of size BUFFER_STD for the server to work properly*/
 #define BUFFER_STD 4
 /*********FORM OF DATA FROM CLIENT **********
  *          [SIZE][TYPE][DATA][EOM]
@@ -34,19 +39,51 @@
  * TYPE = Type of request
  * EOM  = End of message
  ********************************************/
-#define SIZE_OF_DSIZE sizeof long //size of [SIZE]
-#define SIZE_OF_DTYPE 16          //size of [TYPE]
-#define SIZE_OF_DEOM 10           //size of [EOM]
 
+///Defines a Byte through a char
+/** 1 byte == 1 char*/
 typedef char Byte;
+
+/// all transmitted info == 1 data
 typedef struct Data
 {
+    ///the number of pieces of content
     long size;
+    ///The type of transmission requested
     char type[8];
+    ///Actual content
     Byte *content;
 } Data;
 
-// Error Handling
+
+///Server object
+/** This object looks after running the Server, it has been made modular so it's easy to implement once the core is designed*/
+class Server
+{
+    public:
+    Server();
+    Server(int);
+    ~Server();
+
+    void init();
+    int run();
+
+    int getPort();
+    void setCtx(SSL_CTX *);
+    SSL_CTX * getCtx();
+    void setMainLoop(std::function<void(SSL_CTX *,int)>);
+
+    private:
+    ///Port on which the server runs
+    int port;
+    ///Context for openSSL
+    SSL_CTX *ctx;
+    std::function<void(SSL_CTX *,int)> mainLoop = NULL;
+};
+
+void defaultLoop(SSL_CTX * ctx, int client_fd);
+
+/// Error Handling
 void error(const char *msg);
 
 // on Listen

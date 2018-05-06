@@ -13,3 +13,10 @@ server
 test
 
 hax.cpp
+
+# Documentation
+Doxy
+questionServer/Docs/latex/*
+!questionServer/Docs/latex/refman.pdf
+
+extra
