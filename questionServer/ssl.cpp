@@ -61,4 +61,13 @@ void configure_context(SSL_CTX *ctx)
         exit(EXIT_FAILURE);
     }
 
+    // Require certificates from other server !!
+    if (!SSL_CTX_load_verify_locations(ctx, "certs/ca-valid.crt", NULL))
+    {
+        ERR_print_errors_fp(stderr);
+        exit(1);
+    }
+
+    SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+    SSL_CTX_set_verify_depth(ctx, 1);
 }

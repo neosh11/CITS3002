@@ -9,6 +9,9 @@ Server::~Server()
 }
 
 ///Initializes Server with openSSL context :0
+/**
+ * Sets the mainLoop to a loop that runs SSL
+ * */
 void Server::initOpenSSL()
 {
     /********OPENSSL CONTEXT***********/
@@ -44,6 +47,11 @@ void Server::setMainLoop(std::function<void(SSL_CTX * ctx,int server_fd, int cli
 }
 
 ///Runs the Server &hearts;
+/**
+ * Starts server, begins accepting client
+ * takes care of creation/destruction of sockets
+ * Runs the main loop on the sockets
+ * */
 int Server::run()
 {
 
@@ -141,6 +149,7 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
     {
         /* Get the client's certificate (optional) */
         client_cert = SSL_get_peer_certificate(ssl);
+        
         if (client_cert != NULL)
         {
             printf("Client certificate:\n");
@@ -156,12 +165,14 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
             printf("\t issuer: %s\n", str);
 
             X509_free(client_cert);
+            actionSSL(ssl);
         }
+
 
         /*------- DATA EXCHANGE - Receive message and send reply. -------*/
         /* Receive data from the SSL client */
 
-        actionSSL(ssl);
+        
         if (SSL_shutdown(ssl) < 0)
         {
             error("failed to shutdown SSL");

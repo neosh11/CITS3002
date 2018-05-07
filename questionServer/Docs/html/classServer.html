@@ -124,13 +124,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a55fbd41fa27f31121183f126c8a97023"><td class="memItemLeft" align="right" valign="top"><a id="a55fbd41fa27f31121183f126c8a97023"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Server</b> (int)</td></tr>
 <tr class="separator:a55fbd41fa27f31121183f126c8a97023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc583b82926b2b3beb01ec1d23c3a368"><td class="memItemLeft" align="right" valign="top"><a id="abc583b82926b2b3beb01ec1d23c3a368"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#abc583b82926b2b3beb01ec1d23c3a368">initOpenSSL</a> ()</td></tr>
-<tr class="memdesc:abc583b82926b2b3beb01ec1d23c3a368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes <a class="el" href="classServer.html" title="Server object. ">Server</a> with openSSL context :0. <br /></td></tr>
+<tr class="memitem:abc583b82926b2b3beb01ec1d23c3a368"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#abc583b82926b2b3beb01ec1d23c3a368">initOpenSSL</a> ()</td></tr>
+<tr class="memdesc:abc583b82926b2b3beb01ec1d23c3a368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes <a class="el" href="classServer.html" title="Server object. ">Server</a> with openSSL context :0.  <a href="#abc583b82926b2b3beb01ec1d23c3a368">More...</a><br /></td></tr>
 <tr class="separator:abc583b82926b2b3beb01ec1d23c3a368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30362b937b125d27916cf595bfc4c1a7"><td class="memItemLeft" align="right" valign="top"><a id="a30362b937b125d27916cf595bfc4c1a7"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a30362b937b125d27916cf595bfc4c1a7">run</a> ()</td></tr>
-<tr class="memdesc:a30362b937b125d27916cf595bfc4c1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the <a class="el" href="classServer.html" title="Server object. ">Server</a> &hearts;. <br /></td></tr>
+<tr class="memitem:a30362b937b125d27916cf595bfc4c1a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a30362b937b125d27916cf595bfc4c1a7">run</a> ()</td></tr>
+<tr class="memdesc:a30362b937b125d27916cf595bfc4c1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the <a class="el" href="classServer.html" title="Server object. ">Server</a> &hearts;.  <a href="#a30362b937b125d27916cf595bfc4c1a7">More...</a><br /></td></tr>
 <tr class="separator:a30362b937b125d27916cf595bfc4c1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52f64464f63a5220ef8eaa3962e69e5d"><td class="memItemLeft" align="right" valign="top"><a id="a52f64464f63a5220ef8eaa3962e69e5d"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a52f64464f63a5220ef8eaa3962e69e5d">getPort</a> ()</td></tr>
@@ -152,7 +150,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p class=""><a class="el" href="classServer.html" title="Server object. ">Server</a> object. </p>
 <p class="">This object looks after running the <a class="el" href="classServer.html" title="Server object. ">Server</a>, it has been made modular so it's easy to implement once the core is designed </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc583b82926b2b3beb01ec1d23c3a368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc583b82926b2b3beb01ec1d23c3a368">&#9670;&nbsp;</a></span>initOpenSSL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::initOpenSSL </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes <a class="el" href="classServer.html" title="Server object. ">Server</a> with openSSL context :0. </p>
+<p class="">Sets the mainLoop to a loop that runs SSL </p>
+
+</div>
+</div>
+<a id="a30362b937b125d27916cf595bfc4c1a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30362b937b125d27916cf595bfc4c1a7">&#9670;&nbsp;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Server::run </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the <a class="el" href="classServer.html" title="Server object. ">Server</a> &hearts;. </p>
+<p class="">Starts server, begins accepting client takes care of creation/destruction of sockets Runs the main loop on the sockets </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="server_8h_source.html">server.h</a></li>
 <li>serverImp.cpp</li>
 </ul>

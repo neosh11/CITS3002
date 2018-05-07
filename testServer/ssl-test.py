@@ -3,6 +3,7 @@ import sys
 import math
 import ssl
 import socket
+from os import path
 
 # Create a TCP/IP socket
 BUFFER_STD = 4
@@ -33,6 +34,38 @@ def receiveData(sock):
             content_data += sock.recv(BUFFER_STD)
     return (size_data, type_data, content_data.decode())
 
+
+def start_send(message):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    # certificates required
+    context.verify_mode = ssl.CERT_REQUIRED
+    # path of ca
+
+    #add this servers certs tooo
+    pubcert = path.dirname(path.realpath(__file__)) +'/certificates/certificate.pem'
+    keycert = path.dirname(path.realpath(__file__)) +'/certificates/key.pem'
+    context.load_cert_chain(certfile=pubcert, keyfile=keycert)
+    
+    cert =  path.dirname(path.realpath(__file__)) +'/certificates/ca-valid.crt'
+    context.load_verify_locations(cert)
+    context.check_hostname = True
+
+    
+
+    sslsock = context.wrap_socket(sock = sock, server_side=False, do_handshake_on_connect=True, suppress_ragged_eofs=True, server_hostname='localhost', session=None)
+
+    sslsock.connect(server_address)
+    # Send data
+    print("sending")
+    sendData(sslsock, message)
+    # Receive response!
+    print("response")
+    returnData = receiveData(sslsock)
+    print(returnData)
+    return returnData
+
+
 # Connect the socket to the port where the server is listening
 server_address = (IP, PORT)
 print('connecting to %s port %s' % server_address)
@@ -40,10 +73,6 @@ inp = ""
 try:
     print(ssl.get_server_certificate(server_address, ssl_version=ssl.PROTOCOL_TLS, ca_certs=None))
     while(True):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-        sslsock = context.wrap_socket(sock = sock, server_side=False, do_handshake_on_connect=True, suppress_ragged_eofs=True, server_hostname=None, session=None)
-        sslsock.connect(server_address)
 
         # Get input
         inp = input("message: ")
@@ -53,12 +82,7 @@ try:
         message = packData(inp, 1)
         print(message)
 
-        # Send data
-        print("sending")
-        sendData(sslsock, message)
-        # Receive response!
-        print("response")
-        print(receiveData(sslsock))
+        start_send(message)
 
 
 finally:

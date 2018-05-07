@@ -24,8 +24,8 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "C++ server", "index.html", [
+    [ "Installation", "md_README.html", null ],
     [ "Introduction", "md_Doxy_introduction.html", null ],
-    [ "Installation", "md_Doxy_installation.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
