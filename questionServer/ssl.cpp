@@ -1,16 +1,19 @@
 #include "server.h"
 
+///Initilizes openSSL
 void init_openssl()
 {
     SSL_load_error_strings();
     OpenSSL_add_ssl_algorithms();
 }
 
+///Cleans up openSSL
 void cleanup_openssl()
 {
     EVP_cleanup();
 }
 
+///Creates context
 SSL_CTX *create_context()
 {
     const SSL_METHOD *method;
@@ -33,6 +36,7 @@ SSL_CTX *create_context()
     return ctx;
 }
 
+///Configures context
 void configure_context(SSL_CTX *ctx)
 {
     SSL_CTX_set_ecdh_auto(ctx, 1);

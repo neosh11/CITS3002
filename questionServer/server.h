@@ -2,6 +2,7 @@
 #define MY_SERVER_H
 
 #include "globals.h"
+#include "ssl.h"
 
 #include <iostream>
 #include <string.h>
@@ -16,13 +17,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h> //inet_ntoa
-
-
-
-#include <openssl/ssl.h>
-#include <openssl/err.h>
-
-
 
 #include "QuestionBank.h"
 /** @file */ 
@@ -65,38 +59,31 @@ class Server
     Server(int);
     ~Server();
 
-    void init();
+    void initOpenSSL();
     int run();
 
     int getPort();
     void setCtx(SSL_CTX *);
     SSL_CTX * getCtx();
-    void setMainLoop(std::function<void(SSL_CTX *,int)>);
+    void setMainLoop(std::function<void(SSL_CTX * ctx,int server_fd, int client_fd)>);
 
     private:
     ///Port on which the server runs
     int port;
     ///Context for openSSL
     SSL_CTX *ctx;
-    std::function<void(SSL_CTX *,int)> mainLoop = NULL;
+    std::function<void(SSL_CTX * ctx,int server_fd, int client_fd)> mainLoop = NULL;
 };
 
-void defaultLoop(SSL_CTX * ctx, int client_fd);
-
+///This loop runs when no loop is specified
+void defaultDataLoop(SSL_CTX * ctx,int server_fd, int client_fd);
+///This loop runs when SSL is enabled
+void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd);
 /// Error Handling
 void error(const char *msg);
 
 // on Listen
 void action(int sock);
-void action2(int sock);
+void actionSSL(SSL *ssl);
 
 #endif
-
-
-/********OPENSSL*************/
-
-void init_openssl();
-void cleanup_openssl();
-SSL_CTX *create_context();
-void configure_context(SSL_CTX *ctx);
-

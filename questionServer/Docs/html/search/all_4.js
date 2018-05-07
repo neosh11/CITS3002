@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['init',['init',['../classServer.html#a1016678b77eacc5aa97f2310f8b442b1',1,'Server']]],
-  ['installation',['Installation',['../md_Doxy_installation.html',1,'']]],
-  ['introduction',['Introduction',['../md_Doxy_introduction.html',1,'']]]
+  ['getctx',['getCtx',['../classServer.html#a4dbbf8eab25b60d131af1e19b3139685',1,'Server']]],
+  ['getport',['getPort',['../classServer.html#a52f64464f63a5220ef8eaa3962e69e5d',1,'Server']]]
 ];

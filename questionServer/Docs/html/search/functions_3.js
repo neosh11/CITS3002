@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['setctx',['setCtx',['../classServer.html#aad1e224e9909fccbc277fb113b8dc306',1,'Server']]],
-  ['setmainloop',['setMainLoop',['../classServer.html#ab72b8df1262c62c9a5cad6b352a0241c',1,'Server']]]
+  ['getctx',['getCtx',['../classServer.html#a4dbbf8eab25b60d131af1e19b3139685',1,'Server']]],
+  ['getport',['getPort',['../classServer.html#a52f64464f63a5220ef8eaa3962e69e5d',1,'Server']]]
 ];

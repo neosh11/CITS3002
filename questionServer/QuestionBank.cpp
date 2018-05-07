@@ -86,12 +86,3 @@ std::vector<std::string> Question::getOptions()
 {
     return options;
 }
-
-// int main()
-// {
-//     QuestionBank x("./resources/questions.data");
-//     cout << x.getQuestion(0).getQString() << "\n";
-//     cout << x.getQuestion(1).getQString() << "\n";
-//     cout << x.getQuestion(2).getQString() << "\n";
-//     cout << x.getFileName() << '\n';
-// }

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['getctx',['getCtx',['../classServer.html#a4dbbf8eab25b60d131af1e19b3139685',1,'Server']]],
-  ['getport',['getPort',['../classServer.html#a52f64464f63a5220ef8eaa3962e69e5d',1,'Server']]]
+  ['cleanup_5fopenssl',['cleanup_openssl',['../ssl_8h.html#acffc20c5feb0bed940c823cca4c1f121',1,'ssl.cpp']]],
+  ['configure_5fcontext',['configure_context',['../ssl_8h.html#ac058dd06ab90e90d03700b2d8a190c03',1,'ssl.cpp']]],
+  ['create_5fcontext',['create_context',['../ssl_8h.html#aa6a064c3ca413e0570c9bcfc2fc828aa',1,'ssl.cpp']]]
 ];

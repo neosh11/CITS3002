@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['run',['run',['../classServer.html#a30362b937b125d27916cf595bfc4c1a7',1,'Server']]]
+  ['error',['error',['../server_8h.html#a4866b2d37ffc80c5ba705d3fcd1e0ecf',1,'communicate.cpp']]]
 ];

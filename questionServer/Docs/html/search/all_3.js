@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['getctx',['getCtx',['../classServer.html#a4dbbf8eab25b60d131af1e19b3139685',1,'Server']]],
-  ['getport',['getPort',['../classServer.html#a52f64464f63a5220ef8eaa3962e69e5d',1,'Server']]]
+  ['error',['error',['../server_8h.html#a4866b2d37ffc80c5ba705d3fcd1e0ecf',1,'communicate.cpp']]]
 ];

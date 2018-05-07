@@ -30,7 +30,7 @@
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="custom.css" rel="stylesheet" type="text/css"/>
 <style>
-        html{ background-image: "bg.png";}
+        html{ background-image: "logo.png";}
 </style>
 </head>
 <body>
@@ -39,7 +39,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo" style="width:10%;"><img alt="Logo" src="bg.png"/></td>
+  <td id="projectlogo" style="width:2%;"></td>
+  <td id="projectlogo" style="width:10%;"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname"><h2>C++ server 
    &#160;<span id="projectnumber">0.1</span>
@@ -123,10 +124,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a55fbd41fa27f31121183f126c8a97023"><td class="memItemLeft" align="right" valign="top"><a id="a55fbd41fa27f31121183f126c8a97023"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Server</b> (int)</td></tr>
 <tr class="separator:a55fbd41fa27f31121183f126c8a97023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1016678b77eacc5aa97f2310f8b442b1"><td class="memItemLeft" align="right" valign="top"><a id="a1016678b77eacc5aa97f2310f8b442b1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a1016678b77eacc5aa97f2310f8b442b1">init</a> ()</td></tr>
-<tr class="memdesc:a1016678b77eacc5aa97f2310f8b442b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes <a class="el" href="classServer.html" title="Server object. ">Server</a> with openSSL context :0. <br /></td></tr>
-<tr class="separator:a1016678b77eacc5aa97f2310f8b442b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc583b82926b2b3beb01ec1d23c3a368"><td class="memItemLeft" align="right" valign="top"><a id="abc583b82926b2b3beb01ec1d23c3a368"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#abc583b82926b2b3beb01ec1d23c3a368">initOpenSSL</a> ()</td></tr>
+<tr class="memdesc:abc583b82926b2b3beb01ec1d23c3a368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes <a class="el" href="classServer.html" title="Server object. ">Server</a> with openSSL context :0. <br /></td></tr>
+<tr class="separator:abc583b82926b2b3beb01ec1d23c3a368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30362b937b125d27916cf595bfc4c1a7"><td class="memItemLeft" align="right" valign="top"><a id="a30362b937b125d27916cf595bfc4c1a7"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a30362b937b125d27916cf595bfc4c1a7">run</a> ()</td></tr>
 <tr class="memdesc:a30362b937b125d27916cf595bfc4c1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the <a class="el" href="classServer.html" title="Server object. ">Server</a> &hearts;. <br /></td></tr>
@@ -143,10 +144,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 SSL_CTX *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a4dbbf8eab25b60d131af1e19b3139685">getCtx</a> ()</td></tr>
 <tr class="memdesc:a4dbbf8eab25b60d131af1e19b3139685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the SSL_CTX. <br /></td></tr>
 <tr class="separator:a4dbbf8eab25b60d131af1e19b3139685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab72b8df1262c62c9a5cad6b352a0241c"><td class="memItemLeft" align="right" valign="top"><a id="ab72b8df1262c62c9a5cad6b352a0241c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#ab72b8df1262c62c9a5cad6b352a0241c">setMainLoop</a> (std::function&lt; void(SSL_CTX *, int)&gt;)</td></tr>
-<tr class="memdesc:ab72b8df1262c62c9a5cad6b352a0241c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the main loop of the server. <br /></td></tr>
-<tr class="separator:ab72b8df1262c62c9a5cad6b352a0241c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb08273adbdf61d9bb7bbc5016e863c"><td class="memItemLeft" align="right" valign="top"><a id="aacb08273adbdf61d9bb7bbc5016e863c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#aacb08273adbdf61d9bb7bbc5016e863c">setMainLoop</a> (std::function&lt; void(SSL_CTX *ctx, int server_fd, int client_fd)&gt;)</td></tr>
+<tr class="memdesc:aacb08273adbdf61d9bb7bbc5016e863c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the main loop of the server. <br /></td></tr>
+<tr class="separator:aacb08273adbdf61d9bb7bbc5016e863c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p class=""><a class="el" href="classServer.html" title="Server object. ">Server</a> object. </p>
@@ -162,7 +163,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classServer.html">Server</a></li>
-    <li class="footer">Generated on Sun May 6 2018 16:57:30 for C++ server by
+    <li class="footer">BigBabyProd</li>
   </ul>
 </div>
 </body>

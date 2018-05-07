@@ -30,7 +30,7 @@
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="custom.css" rel="stylesheet" type="text/css"/>
 <style>
-        html{ background-image: "bg.png";}
+        html{ background-image: "logo.png";}
 </style>
 </head>
 <body>
@@ -39,7 +39,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo" style="width:10%;"><img alt="Logo" src="bg.png"/></td>
+  <td id="projectlogo" style="width:2%;"></td>
+  <td id="projectlogo" style="width:10%;"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname"><h2>C++ server 
    &#160;<span id="projectnumber">0.1</span>
@@ -115,6 +116,7 @@ $(document).ready(function(){initNavTree('server_8h.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;globals.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="ssl_8h_source.html">ssl.h</a>&quot;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
@@ -127,8 +129,6 @@ $(document).ready(function(){initNavTree('server_8h.html','');});
 <code>#include &lt;sys/socket.h&gt;</code><br />
 <code>#include &lt;netinet/in.h&gt;</code><br />
 <code>#include &lt;arpa/inet.h&gt;</code><br />
-<code>#include &lt;openssl/ssl.h&gt;</code><br />
-<code>#include &lt;openssl/err.h&gt;</code><br />
 <code>#include &quot;QuestionBank.h&quot;</code><br />
 </div>
 <p><a href="server_8h_source.html">Go to the source code of this file.</a></p>
@@ -164,27 +164,24 @@ typedef struct <a class="el" href="structData.html">Data</a>&#160;</td><td class
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aec5cbfbb5cdc72fee60798b3d8b7bee0"><td class="memItemLeft" align="right" valign="top"><a id="aec5cbfbb5cdc72fee60798b3d8b7bee0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#aec5cbfbb5cdc72fee60798b3d8b7bee0">defaultDataLoop</a> (SSL_CTX *ctx, int server_fd, int client_fd)</td></tr>
+<tr class="memdesc:aec5cbfbb5cdc72fee60798b3d8b7bee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This loop runs when no loop is specified. <br /></td></tr>
+<tr class="separator:aec5cbfbb5cdc72fee60798b3d8b7bee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f72357768236a052d55d7db618dfaf"><td class="memItemLeft" align="right" valign="top"><a id="ae2f72357768236a052d55d7db618dfaf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#ae2f72357768236a052d55d7db618dfaf">defaultSSLDataLoop</a> (SSL_CTX *ctx, int server_fd, int client_fd)</td></tr>
+<tr class="memdesc:ae2f72357768236a052d55d7db618dfaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This loop runs when SSL is enabled. <br /></td></tr>
+<tr class="separator:ae2f72357768236a052d55d7db618dfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="memItemLeft" align="right" valign="top"><a id="a4866b2d37ffc80c5ba705d3fcd1e0ecf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>error</b> (const char *msg)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a4866b2d37ffc80c5ba705d3fcd1e0ecf">error</a> (const char *msg)</td></tr>
+<tr class="memdesc:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error Handling. <br /></td></tr>
 <tr class="separator:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb132b2113f571c3dd56d34120e361f"><td class="memItemLeft" align="right" valign="top"><a id="a3eb132b2113f571c3dd56d34120e361f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>action</b> (int sock)</td></tr>
 <tr class="separator:a3eb132b2113f571c3dd56d34120e361f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ec6618d0b8a586b8f71308f7c05b50"><td class="memItemLeft" align="right" valign="top"><a id="a77ec6618d0b8a586b8f71308f7c05b50"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>action2</b> (int sock)</td></tr>
-<tr class="separator:a77ec6618d0b8a586b8f71308f7c05b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7aedaae2ac3e93d4d54d444fb2c50d"><td class="memItemLeft" align="right" valign="top"><a id="a5f7aedaae2ac3e93d4d54d444fb2c50d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>init_openssl</b> ()</td></tr>
-<tr class="separator:a5f7aedaae2ac3e93d4d54d444fb2c50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acffc20c5feb0bed940c823cca4c1f121"><td class="memItemLeft" align="right" valign="top"><a id="acffc20c5feb0bed940c823cca4c1f121"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup_openssl</b> ()</td></tr>
-<tr class="separator:acffc20c5feb0bed940c823cca4c1f121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6a064c3ca413e0570c9bcfc2fc828aa"><td class="memItemLeft" align="right" valign="top"><a id="aa6a064c3ca413e0570c9bcfc2fc828aa"></a>
-SSL_CTX *&#160;</td><td class="memItemRight" valign="bottom"><b>create_context</b> ()</td></tr>
-<tr class="separator:aa6a064c3ca413e0570c9bcfc2fc828aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac058dd06ab90e90d03700b2d8a190c03"><td class="memItemLeft" align="right" valign="top"><a id="ac058dd06ab90e90d03700b2d8a190c03"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>configure_context</b> (SSL_CTX *ctx)</td></tr>
-<tr class="separator:ac058dd06ab90e90d03700b2d8a190c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330bb193f64f58fff081217f1e7b51f3"><td class="memItemLeft" align="right" valign="top"><a id="a330bb193f64f58fff081217f1e7b51f3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>actionSSL</b> (SSL *ssl)</td></tr>
+<tr class="separator:a330bb193f64f58fff081217f1e7b51f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a5c400472ef109ecee0c42adc4ffcb989"></a>
@@ -229,7 +226,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>configure_context</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="server_8h.html">server.h</a></li>
-    <li class="footer">Generated on Sun May 6 2018 16:57:30 for C++ server by
+    <li class="footer">BigBabyProd</li>
   </ul>
 </div>
 </body>

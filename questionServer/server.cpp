@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     init_openssl();
 
     Server x(PORT);
-    x.init();
+    x.initOpenSSL();
+    // x.setMainLoop(loop);
     return x.run();
 }

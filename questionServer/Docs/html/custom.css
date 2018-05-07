@@ -31,7 +31,12 @@ h1.groupheader {
 }
 
 #titlearea {
-        background: linear-gradient(red, purple);
+        /* background: linear-gradient(red, purple); */
+        background: linear-gradient(315deg, transparent 75%, #d45d55 0)-10px 0,
+        linear-gradient(45deg, transparent 75%, #d45d55 0)-10px 0,
+        linear-gradient(135deg, #a7332b 50%, transparent 0) 0 0,
+        linear-gradient(45deg, #6a201b 50%, #561a16 0) 0 0 #561a16;
+        background-size: 20px 20px;
         color: white;
 }
 
@@ -1120,15 +1125,19 @@ div.ingroups a
 
 div.header
 {
-        background-image:url('nav_h.png');
-        background-repeat:repeat-x;
-	background-color: #F9FAFC;
-	margin:  0px;
-	border-bottom: 1px solid #C4CFE5;
+        background:
+        radial-gradient(black 15%, transparent 16%) 0 0,
+        radial-gradient(black 15%, transparent 16%) 8px 8px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+        background-color:#282828;
+        background-size:16px 16px;
+        background-size: 20px 20px;
 }
 
 div.headertitle
 {
+        color: white;
 	padding: 5px 5px 5px 10px;
 }
 

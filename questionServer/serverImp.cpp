@@ -9,11 +9,14 @@ Server::~Server()
 }
 
 ///Initializes Server with openSSL context :0
-void Server::init()
+void Server::initOpenSSL()
 {
     /********OPENSSL CONTEXT***********/
     ctx = create_context();
     configure_context(ctx);
+
+    //Use SSL loop
+    mainLoop = defaultSSLDataLoop;
 }
 
 ///Gets port that the server is running on
@@ -35,7 +38,8 @@ SSL_CTX *Server::getCtx()
 }
 
 ///Sets the main loop of the server
-void Server::setMainLoop(std::function<void(SSL_CTX * ctx,int client_fd)> mainLoop){
+void Server::setMainLoop(std::function<void(SSL_CTX * ctx,int server_fd, int client_fd)> mainLoop)
+{
     this->mainLoop = mainLoop;
 }
 
@@ -78,9 +82,19 @@ int Server::run()
 
         std::cout << "client: " << inet_ntoa(cli_addr.sin_addr) << ", port: " << ntohs(cli_addr.sin_port) << ", socket: " << client_fd << '\n';
 
-        setMainLoop(defaultLoop);
-        mainLoop(ctx, client_fd);
+        if (mainLoop == NULL)
+        {
+            setMainLoop(defaultDataLoop);
+            mainLoop(ctx, server_fd, client_fd);
+        }
+        else
+        {
+            mainLoop(ctx, server_fd, client_fd);
+        }
 
+        /* Terminate communication on a socket */
+        if (close(client_fd) < 0)
+            error("failed to close");
     }
     close(server_fd);
 
@@ -89,12 +103,28 @@ int Server::run()
     return 0;
 }
 
-
-void defaultLoop(SSL_CTX * ctx, int client_fd)
+void defaultDataLoop(SSL_CTX *ctx,int server_fd, int client_fd)
 {
+    switch (fork())
+        {
+        case -1:
+            error("ERROR on fork");
+            break;
+        case 0:
+            close(server_fd);
+            action(client_fd);
+            exit(0);
+            break;
+        default:
+            close(client_fd);
+        }
+}
+
+void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
+{
+
     X509 *client_cert = NULL;
     char *str;
-    char buf[BUFFER_STD];
 
     /************CREATED SSL***************/
     SSL *ssl = NULL;
@@ -130,31 +160,16 @@ void defaultLoop(SSL_CTX * ctx, int client_fd)
 
         /*------- DATA EXCHANGE - Receive message and send reply. -------*/
         /* Receive data from the SSL client */
-        int n;
-        if ((n = SSL_read(ssl, buf, sizeof(buf) - 1)) < 0)
-            error("can't read");
 
-        buf[n] = '\0';
-
-        printf("Received %d chars:'%s'\n", n, buf);
-
-        /* Send data to the SSL client */
-        if (SSL_write(ssl, "This message is from the SSL server", strlen("This message is from the SSL server")) < 0)
-        {
-            error("failed ssl write");
-        }
-
-        /****************** SSL shutdown ******************/
+        actionSSL(ssl);
         if (SSL_shutdown(ssl) < 0)
         {
             error("failed to shutdown SSL");
         }
 
-        /* Terminate communication on a socket */
-        if (close(client_fd) < 0)
-            error("failed to close");
-
+        std::cout << "Closing sll \n";
         /* Free the SSL structure */
         SSL_free(ssl);
     }
+
 }
