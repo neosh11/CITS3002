@@ -58,7 +58,7 @@ string QuestionBank::getFileName()
 
 Question QuestionBank::getQuestion(int n)
 {
-    if (n >= 0 && n < questions.size())
+    if (n >= 0 && (unsigned int)n < questions.size())
         return questions[n];
     else throw out_of_range("Index out of bounds!");
 }
@@ -86,12 +86,3 @@ std::vector<std::string> Question::getOptions()
 {
     return options;
 }
-
-// int main()
-// {
-//     QuestionBank x("./resources/questions.data");
-//     cout << x.getQuestion(0).getQString() << "\n";
-//     cout << x.getQuestion(1).getQString() << "\n";
-//     cout << x.getQuestion(2).getQString() << "\n";
-//     cout << x.getFileName() << '\n';
-// }
