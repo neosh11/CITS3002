@@ -11,16 +11,18 @@
 class Question
 {
     public:
-    Question(char, std::string, std::vector<std::string>);
+    Question(char, std::string, std::vector<std::string>, int);
 
     char getType();
     std::string getQString();
     std::vector<std::string> getOptions();
+    int getAns();
 
     private:
     char type;
     std::string question;
     std::vector<std::string> options;
+    int answer;
 };
 
 class QuestionBank

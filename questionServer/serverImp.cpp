@@ -167,7 +167,6 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
             actionSSL(ssl);
         }
 
-
         /*------- DATA EXCHANGE - Receive message and send reply. -------*/
         /* Receive data from the SSL client */
 

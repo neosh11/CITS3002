@@ -32,7 +32,7 @@ def receiveData(sock):
             content_data = sock.recv(BUFFER_STD)
         else:
             content_data += sock.recv(BUFFER_STD)
-    return (size_data, type_data, content_data.decode())
+    return content_data.decode()
 
 
 def createSSLSocket():

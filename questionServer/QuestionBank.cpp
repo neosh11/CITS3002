@@ -23,7 +23,7 @@ int QuestionBank::setFile(std::string file_name)
             string line;
             getline(inpFile, line);
 
-            const regex r("(.*)#(.*)#(.*)#(.*)#(.*)");
+            const regex r("(.*)#(.*)#(.*)#(.*)#(.*)#(.*)");
             smatch sm;
 
             if (regex_search(line, sm, r))
@@ -36,7 +36,7 @@ int QuestionBank::setFile(std::string file_name)
                     temp.push_back(sm[4]);
                     temp.push_back(sm[5]);
 
-                    questions.push_back(Question('m', sm[2], temp));
+                    questions.push_back(Question('m', sm[2], temp, stoi(sm[6])));
                 }
             }
         }
@@ -68,11 +68,12 @@ int  QuestionBank::getSize(){
 }
 
 /*******************QUESTION CLASS************************/
-Question::Question(char t, std::string s, std::vector<std::string> o)
+Question::Question(char t, std::string s, std::vector<std::string> o, int a)
 {
     type = t;
     question = s;
     options = o;
+    answer = a;
 }
 char Question::getType()
 {
@@ -86,3 +87,8 @@ std::vector<std::string> Question::getOptions()
 {
     return options;
 }
+
+int Question::getAns()
+{
+    return answer;
+} 
