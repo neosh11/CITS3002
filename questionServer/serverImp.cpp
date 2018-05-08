@@ -149,7 +149,6 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
     {
         /* Get the client's certificate (optional) */
         client_cert = SSL_get_peer_certificate(ssl);
-        
         if (client_cert != NULL)
         {
             printf("Client certificate:\n");

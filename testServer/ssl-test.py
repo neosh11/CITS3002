@@ -35,7 +35,7 @@ def receiveData(sock):
     return (size_data, type_data, content_data.decode())
 
 
-def start_send(message):
+def createSSLSocket():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     # certificates required
@@ -51,20 +51,15 @@ def start_send(message):
     context.load_verify_locations(cert)
     context.check_hostname = True
 
-    
-
     sslsock = context.wrap_socket(sock = sock, server_side=False, do_handshake_on_connect=True, suppress_ragged_eofs=True, server_hostname='localhost', session=None)
-
     sslsock.connect(server_address)
-    # Send data
-    print("sending")
-    sendData(sslsock, message)
-    # Receive response!
-    print("response")
-    returnData = receiveData(sslsock)
-    print(returnData)
-    return returnData
+    return sslsock
 
+def start_send(message):
+    sslsock = createSSLSocket()
+    sendData(sslsock, message)
+    returnData = receiveData(sslsock)
+    return returnData
 
 # Connect the socket to the port where the server is listening
 server_address = (IP, PORT)
@@ -73,17 +68,13 @@ inp = ""
 try:
     print(ssl.get_server_certificate(server_address, ssl_version=ssl.PROTOCOL_TLS, ca_certs=None))
     while(True):
-
         # Get input
         inp = input("message: ")
         # Quit if input is quit
         if(inp == "quit"):
             break
         message = packData(inp, 1)
-        print(message)
-
-        start_send(message)
-
+        print(start_send(message))
 
 finally:
     print("fin")

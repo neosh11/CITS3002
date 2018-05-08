@@ -195,7 +195,7 @@ void actionSSL(SSL *ssl)
             }
             if (sm[1] == "neosh")
             {
-                sent = sendContent(ssl, exec("./olives 1"), 1);
+                sent = sendContent(ssl,"HELLO DARKNESS", 1);
             }
         }
     }

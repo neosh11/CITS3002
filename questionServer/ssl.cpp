@@ -23,7 +23,9 @@ SSL_CTX *create_context()
     The supported protocols are SSLv3, TLSv1, TLSv1.1 and TLSv1.2
     Applications should use these methods, and avoid the version-specific methods 
     */
-    method = TLS_server_method();
+
+//    method = TLS_server_method(); TOO Modern for old openssl
+    method = SSLv23_server_method();
     ctx = SSL_CTX_new(method);
 
     if (!ctx)
