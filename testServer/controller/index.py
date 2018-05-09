@@ -1,3 +1,6 @@
+import json
+import controller.auth
+
 public_directory=""
 views_directory=""
 
@@ -37,6 +40,27 @@ def getPublic(obj, path):
     obj.wfile.write(f.read())
     f.close()
 
+# POST STUFF
+def postLogin(obj, USER_MAP):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "text/html")
+    obj.end_headers()
+
+    rev =""
+    try:
+      content_length = int(obj.headers['Content-Length']) # <--- Gets the size of data
+      post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data 
+      print(post_data)
+      rev = controller.auth.login(USER_MAP,post_data["uname"], post_data["password"])
+    except:
+      rev = None
+    
+    m = {'val': rev}
+    n = json.dumps(m)
+    obj.wfile.write(bytes(n, 'utf-8'))
+
+# Error handling
 def getError(obj):
     obj.send_response(404)
     obj.send_header('Content-type', "application/json")

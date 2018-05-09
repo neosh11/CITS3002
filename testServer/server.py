@@ -11,7 +11,6 @@ from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 import ssl
-import json
  
 CURRENT_DIR = path.dirname(path.realpath(__file__))
 controller.index.public_directory = CURRENT_DIR+ "/public"
@@ -58,23 +57,12 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 
   def do_POST(self):
     global USER_MAP
-    self.send_response(200)
-    # Send headers
-    self.send_header('Content-type', "text/html")
-    self.end_headers()
+    path_fix = str(Path(self.path))
 
-    rev =""
-    try:
-      content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
-      post_data = json.loads(self.rfile.read(content_length).decode()) # <--- Gets the data 
-      print(post_data)
-      rev = controller.auth.login(USER_MAP,post_data["uname"], post_data["password"])
-    except:
-      rev = None
-    
-    m = {'val': rev}
-    n = json.dumps(m)
-    self.wfile.write(bytes(n, 'utf-8'))
+    if( path_fix =="/login"):
+      controller.index.postLogin(self, USER_MAP)
+    else:
+      controller.index.getError(self)
 
     return
 

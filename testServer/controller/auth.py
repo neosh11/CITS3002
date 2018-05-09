@@ -36,8 +36,8 @@ class UserDetails:
 users = []
 # Initialize all users
 def init_users_map(fileName):
-    x = os.path.dirname(os.path.realpath(sys.argv[0]))+"\\"
-    with open(x+fileName, 'rb') as f:
+    x = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), fileName)
+    with open(x, 'rb') as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
@@ -54,14 +54,14 @@ def init_users_map(fileName):
 
 
 def dumpMap(map, fileName):
-    x = os.path.dirname(os.path.realpath(sys.argv[0])) +'\\'
-    with open(x+fileName, 'wb') as f:
+    x = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), fileName)
+    with open(x, 'wb') as f:
         pickle.dump(map, f, pickle.HIGHEST_PROTOCOL)
 
 def loadMapFromDump(fileName):
     loadma = {}
-    x = os.path.dirname(os.path.realpath(sys.argv[0]))+'\\'
-    with open(x+fileName, 'rb') as f:
+    x = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), fileName)
+    with open(x, 'rb') as f:
         content = f.read()
         loadma = pickle.loads(content)
     return loadma
@@ -83,6 +83,6 @@ def verify(usernameMap, username, token):
 # map = init_users_map("./../resources/user")
 # dumpMap(map, './../resources/user_dump')
 
-# testuse = "Tim"
-# x = login(map, testuse, "Jimmy-boy")
-# print(verify(map, "Tim", x))
+# testuse = "admin"
+# x = login(map, testuse, "admin")
+# print(verify(map, "admin", x))

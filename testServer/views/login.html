@@ -36,7 +36,7 @@
             var xhr = new XMLHttpRequest();
             if(document.getElementById('username').value != "" && document.getElementById('password').value != ""){
                 sendDat = {'uname': document.getElementById('username').value, 'password': document.getElementById('password').value }
-                xhr.open('POST', "https://localhost:3000/dash", true);
+                xhr.open('POST', "https://localhost:3000/login", true);
                 xhr.send(JSON.stringify(sendDat));
                 function processRequest(e) {
                     if (xhr.readyState == 4 && xhr.status == 200) {
