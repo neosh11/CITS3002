@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ server: Question Class Reference</title>
+<title>C++ server: ssl.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classQuestion.html','');});
+$(document).ready(function(){initNavTree('ssl_8cpp.html','');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -107,42 +107,39 @@ $(document).ready(function(){initNavTree('classQuestion.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classQuestion-members.html">List of all members</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Question Class Reference</div>  </div>
+<div class="title">ssl.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a41d74dab130e915d69f09469aebde544"><td class="memItemLeft" align="right" valign="top"><a id="a41d74dab130e915d69f09469aebde544"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Question</b> (char, std::string, std::vector&lt; std::string &gt;, int)</td></tr>
-<tr class="separator:a41d74dab130e915d69f09469aebde544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76f9a272f8bf557fa34fac98154f6cd2"><td class="memItemLeft" align="right" valign="top"><a id="a76f9a272f8bf557fa34fac98154f6cd2"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> ()</td></tr>
-<tr class="separator:a76f9a272f8bf557fa34fac98154f6cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d18d3e56c6bf189e655e2237f3b4914"><td class="memItemLeft" align="right" valign="top"><a id="a2d18d3e56c6bf189e655e2237f3b4914"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getQString</b> ()</td></tr>
-<tr class="separator:a2d18d3e56c6bf189e655e2237f3b4914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2efc785f89b76f512b8ab333780d8e4"><td class="memItemLeft" align="right" valign="top"><a id="ae2efc785f89b76f512b8ab333780d8e4"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getOptions</b> ()</td></tr>
-<tr class="separator:ae2efc785f89b76f512b8ab333780d8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff619e0edc5c97b8e86d7e3410113177"><td class="memItemLeft" align="right" valign="top"><a id="aff619e0edc5c97b8e86d7e3410113177"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getAns</b> ()</td></tr>
-<tr class="separator:aff619e0edc5c97b8e86d7e3410113177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><code>#include &quot;<a class="el" href="server_8h_source.html">server.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5f7aedaae2ac3e93d4d54d444fb2c50d"><td class="memItemLeft" align="right" valign="top"><a id="a5f7aedaae2ac3e93d4d54d444fb2c50d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ssl_8cpp.html#a5f7aedaae2ac3e93d4d54d444fb2c50d">init_openssl</a> ()</td></tr>
+<tr class="memdesc:a5f7aedaae2ac3e93d4d54d444fb2c50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilizes openSSL. <br /></td></tr>
+<tr class="separator:a5f7aedaae2ac3e93d4d54d444fb2c50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acffc20c5feb0bed940c823cca4c1f121"><td class="memItemLeft" align="right" valign="top"><a id="acffc20c5feb0bed940c823cca4c1f121"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ssl_8cpp.html#acffc20c5feb0bed940c823cca4c1f121">cleanup_openssl</a> ()</td></tr>
+<tr class="memdesc:acffc20c5feb0bed940c823cca4c1f121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up openSSL. <br /></td></tr>
+<tr class="separator:acffc20c5feb0bed940c823cca4c1f121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6a064c3ca413e0570c9bcfc2fc828aa"><td class="memItemLeft" align="right" valign="top"><a id="aa6a064c3ca413e0570c9bcfc2fc828aa"></a>
+SSL_CTX *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ssl_8cpp.html#aa6a064c3ca413e0570c9bcfc2fc828aa">create_context</a> ()</td></tr>
+<tr class="memdesc:aa6a064c3ca413e0570c9bcfc2fc828aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates context. <br /></td></tr>
+<tr class="separator:aa6a064c3ca413e0570c9bcfc2fc828aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac058dd06ab90e90d03700b2d8a190c03"><td class="memItemLeft" align="right" valign="top"><a id="ac058dd06ab90e90d03700b2d8a190c03"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ssl_8cpp.html#ac058dd06ab90e90d03700b2d8a190c03">configure_context</a> (SSL_CTX *ctx)</td></tr>
+<tr class="memdesc:ac058dd06ab90e90d03700b2d8a190c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures context. <br /></td></tr>
+<tr class="separator:ac058dd06ab90e90d03700b2d8a190c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="QuestionBank_8h_source.html">QuestionBank.h</a></li>
-<li>QuestionBank.cpp</li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="classQuestion.html">Question</a></li>
+    <li class="navelem"><a class="el" href="ssl_8cpp.html">ssl.cpp</a></li>
     <li class="footer">BigBabyProd</li>
   </ul>
 </div>

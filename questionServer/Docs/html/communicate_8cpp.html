@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ server: Question Class Reference</title>
+<title>C++ server: communicate.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classQuestion.html','');});
+$(document).ready(function(){initNavTree('communicate_8cpp.html','');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -107,42 +107,45 @@ $(document).ready(function(){initNavTree('classQuestion.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classQuestion-members.html">List of all members</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Question Class Reference</div>  </div>
+<div class="title">communicate.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a41d74dab130e915d69f09469aebde544"><td class="memItemLeft" align="right" valign="top"><a id="a41d74dab130e915d69f09469aebde544"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Question</b> (char, std::string, std::vector&lt; std::string &gt;, int)</td></tr>
-<tr class="separator:a41d74dab130e915d69f09469aebde544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76f9a272f8bf557fa34fac98154f6cd2"><td class="memItemLeft" align="right" valign="top"><a id="a76f9a272f8bf557fa34fac98154f6cd2"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> ()</td></tr>
-<tr class="separator:a76f9a272f8bf557fa34fac98154f6cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d18d3e56c6bf189e655e2237f3b4914"><td class="memItemLeft" align="right" valign="top"><a id="a2d18d3e56c6bf189e655e2237f3b4914"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getQString</b> ()</td></tr>
-<tr class="separator:a2d18d3e56c6bf189e655e2237f3b4914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2efc785f89b76f512b8ab333780d8e4"><td class="memItemLeft" align="right" valign="top"><a id="ae2efc785f89b76f512b8ab333780d8e4"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getOptions</b> ()</td></tr>
-<tr class="separator:ae2efc785f89b76f512b8ab333780d8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff619e0edc5c97b8e86d7e3410113177"><td class="memItemLeft" align="right" valign="top"><a id="aff619e0edc5c97b8e86d7e3410113177"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getAns</b> ()</td></tr>
-<tr class="separator:aff619e0edc5c97b8e86d7e3410113177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><code>#include &quot;<a class="el" href="server_8h_source.html">server.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab19ce8823930cddf341cef3b3c1ee4c2"><td class="memItemLeft" align="right" valign="top"><a id="ab19ce8823930cddf341cef3b3c1ee4c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printStr</b> (char *str, int n)</td></tr>
+<tr class="separator:ab19ce8823930cddf341cef3b3c1ee4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="memItemLeft" align="right" valign="top"><a id="a4866b2d37ffc80c5ba705d3fcd1e0ecf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communicate_8cpp.html#a4866b2d37ffc80c5ba705d3fcd1e0ecf">error</a> (const char *msg)</td></tr>
+<tr class="memdesc:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error Handling. <br /></td></tr>
+<tr class="separator:a4866b2d37ffc80c5ba705d3fcd1e0ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24522c45d25cb1ecf8738d36169353f9"><td class="memItemLeft" align="right" valign="top"><a id="a24522c45d25cb1ecf8738d36169353f9"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>sendContent</b> (int sock, string content, int type)</td></tr>
+<tr class="separator:a24522c45d25cb1ecf8738d36169353f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb132b2113f571c3dd56d34120e361f"><td class="memItemLeft" align="right" valign="top"><a id="a3eb132b2113f571c3dd56d34120e361f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>action</b> (int sock)</td></tr>
+<tr class="separator:a3eb132b2113f571c3dd56d34120e361f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f1ae37932bcbaadbfb26b5cb6bf80a"><td class="memItemLeft" align="right" valign="top"><a id="a71f1ae37932bcbaadbfb26b5cb6bf80a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>sendContent</b> (SSL *ssl, string content, int type)</td></tr>
+<tr class="separator:a71f1ae37932bcbaadbfb26b5cb6bf80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57e13075f5a70bef5082ec23002a33c9"><td class="memItemLeft" align="right" valign="top"><a id="a57e13075f5a70bef5082ec23002a33c9"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>routeResponse</b> (std::string content)</td></tr>
+<tr class="separator:a57e13075f5a70bef5082ec23002a33c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330bb193f64f58fff081217f1e7b51f3"><td class="memItemLeft" align="right" valign="top"><a id="a330bb193f64f58fff081217f1e7b51f3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>actionSSL</b> (SSL *ssl)</td></tr>
+<tr class="separator:a330bb193f64f58fff081217f1e7b51f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="QuestionBank_8h_source.html">QuestionBank.h</a></li>
-<li>QuestionBank.cpp</li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="classQuestion.html">Question</a></li>
+    <li class="navelem"><a class="el" href="communicate_8cpp.html">communicate.cpp</a></li>
     <li class="footer">BigBabyProd</li>
   </ul>
 </div>

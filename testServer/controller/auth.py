@@ -3,6 +3,7 @@ import os
 import sys
 import re
 import pickle
+import random
 
 
 SECRET_KEY_TOKEN = b'Lalanoidwe3094yf2Nioedhoied3fc4093fasfkmakfuf209u32z'
@@ -10,6 +11,8 @@ SECRET_KEY_PASS = b'CAcas@@3jieowiofewhf8943hfn3cin'
 AUTH_SIZE = 64
 KEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_TOKEN)
 PASSKEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_PASS)
+MAX_Q = 4
+CHOOSE_Q = 2
 
 # Initialize secrets
 KEY.update(b"fdafvgrrewv3w")
@@ -29,9 +32,21 @@ class UserDetails:
         self.name = name
         self.password = hashpass(password)
         self.token = hashit(name)
+        self.currentQuestion = 0
+        #question set is made when user set init
 
     def updateToken(self):
         self.token = hashit(self.name)
+
+    def makeQuestionSet(self):
+        s = random.sample(range(1, MAX_Q), CHOOSE_Q)
+        map_q = []
+        for x in s:
+            map_q.append({"qnum":x, "ans":None, "tries": 0})
+        self.questionSet = map_q
+    def setCurrentQuestion(self, num):
+        if(num >=0 and num < CHOOSE_Q):
+            self.currentQuestion = num
 
 users = []
 # Initialize all users
@@ -48,6 +63,7 @@ def init_users_map(fileName):
     # Create a user map
     usernameMap = {}
     for u in users:
+        u.makeQuestionSet()
         usernameMap[u.name] = u
     return usernameMap
 
@@ -86,3 +102,6 @@ def verify(usernameMap, username, token):
 # testuse = "admin"
 # x = login(map, testuse, "admin")
 # print(verify(map, "admin", x))
+
+
+# print(map['admin'].questionSet)

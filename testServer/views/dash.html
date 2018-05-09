@@ -15,16 +15,43 @@
         <h2 id="heading">
 
         </h2>
-        <div style="margin-top: 30vh">
+        <div style="margin-top: 10vh">
             <h3>
                 Progress
             </h3>
-            
+            <button onclick="tryQuestions(0)">CLICK ME!</button>
+
         </div>
     </div>
 </body>
 <script>
     document.getElementById("heading").innerHTML = "Welcome "+ window.localStorage.uname;
+    function tryQuestions(val){
+        if(!val) val = 0;
+        var xhr = new XMLHttpRequest();
+        if(window.localStorage.token && window.localStorage.uname){
+            sendDat = {'uname': window.localStorage.uname, 'token': window.localStorage.token, 'question': val}
+            xhr.open('POST', "https://localhost:3000/setQuestion", true);
+            xhr.send(JSON.stringify(sendDat));
+            function processRequest(e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+
+                    if(response.status){
+                        window.location.replace("https://localhost:3000/question");
+                    }
+                    else{
+                        //error message + enable button
+                    }
+                }
+            }
+        }
+        else{
+            //logoff
+        }
+        xhr.addEventListener("readystatechange", processRequest, false); 
+    }
 </script>
 
 </html>

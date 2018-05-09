@@ -47,6 +47,8 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
       controller.index.getLogin(self)
     elif(self.path == "/dash"):
       controller.index.getDash(self)
+    elif(self.path == "/question"):
+      controller.index.getQuestionPage(self)
     elif(Path(x).is_file()):
       controller.index.getPublic(self, path_fix)
     else:
@@ -58,9 +60,14 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
   def do_POST(self):
     global USER_MAP
     path_fix = str(Path(self.path))
-
     if( path_fix =="/login"):
       controller.index.postLogin(self, USER_MAP)
+    elif(path_fix == "/setQuestion"):
+      controller.index.setQuestion(self, USER_MAP)
+    elif(path_fix == "/getQuestionData"):
+      controller.index.getQuestionData(self, USER_MAP)
+    elif(path_fix == "/markQuestion"):
+      controller.index.markQuestion(self, USER_MAP)
     else:
       controller.index.getError(self)
 
