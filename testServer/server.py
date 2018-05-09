@@ -3,6 +3,7 @@
 
 import controller.index
 import controller.api
+import controller.auth
 
 import string,cgi,time
 from os import curdir, path
@@ -10,11 +11,14 @@ from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 import ssl
+import json
  
 CURRENT_DIR = path.dirname(path.realpath(__file__))
 controller.index.public_directory = CURRENT_DIR+ "/public"
 controller.index.views_directory = CURRENT_DIR+ "/views"
+HOST = "localhost"
 PORT = 3000
+USER_MAP ={}
 
 # Multithreaded server declaration
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
@@ -42,6 +46,8 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
       controller.index.getHome(self)
     elif(self.path == "/login"):
       controller.index.getLogin(self)
+    elif(self.path == "/dash"):
+      controller.index.getDash(self)
     elif(Path(x).is_file()):
       controller.index.getPublic(self, path_fix)
     else:
@@ -50,7 +56,37 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
     print(Path(self.path).parts)
     return
 
-def run():
+  def do_POST(self):
+    global USER_MAP
+    self.send_response(200)
+    # Send headers
+    self.send_header('Content-type', "text/html")
+    self.end_headers()
+
+    rev =""
+    try:
+      content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
+      post_data = json.loads(self.rfile.read(content_length).decode()) # <--- Gets the data 
+      print(post_data)
+      rev = controller.auth.login(USER_MAP,post_data["uname"], post_data["password"])
+    except:
+      rev = None
+    
+    m = {'val': rev}
+    n = json.dumps(m)
+    self.wfile.write(bytes(n, 'utf-8'))
+
+    return
+
+def run(style):
+  global USER_MAP
+  if(style == None):
+    USER_MAP = controller.auth.init_users_map("./resources/user")
+    print(USER_MAP)
+    controller.auth.dumpMap(USER_MAP, "./resources/user_dump")
+  else:
+    USER_MAP = controller.auth.loadMapFromDump("./resources/user_dump")
+
   print('Trying to start server')
   # Server settings
   server_address = ('0.0.0.0', PORT)
@@ -63,4 +99,4 @@ def run():
   httpd.serve_forever()
  
  
-run()
+run(style = None)

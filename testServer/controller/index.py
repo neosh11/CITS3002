@@ -18,6 +18,15 @@ def getLogin(obj):
     f = open(views_directory + "/login.html", 'rb')
     obj.wfile.write(f.read())
     f.close()
+
+def getDash(obj):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "text/html")
+    obj.end_headers()
+    f = open(views_directory + "/dash.html", 'rb')
+    obj.wfile.write(f.read())
+    f.close()
     
 def getPublic(obj, path):
     obj.send_response(200)

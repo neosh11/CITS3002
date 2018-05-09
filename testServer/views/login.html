@@ -17,18 +17,46 @@
                 Login
             </h2>
             <form>
-                <label for="#email">Email</label>
+                <label for="#username">Username</label>
                 <br>
-                <input id="email" type="text">
+                <input id="username" type="text">
                 <br>
                 <label for="#password">Password</label>
                 <br>
                 <input id="password" type="password">
                 <br>
-                <button type="submit">Login</button>
+                <button id="loginbut" type="button" onclick="tryLogin()">Login</button>
             </form>
         </div>
     </div>
+
+    <script>
+        function tryLogin(){
+            document.getElementById("loginbut").disabled = true;
+            var xhr = new XMLHttpRequest();
+            if(document.getElementById('username').value != "" && document.getElementById('password').value != ""){
+                sendDat = {'uname': document.getElementById('username').value, 'password': document.getElementById('password').value }
+                xhr.open('POST', "https://localhost:3000/dash", true);
+                xhr.send(JSON.stringify(sendDat));
+                function processRequest(e) {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                        window.localStorage.token = response;
+                        window.localStorage.uname = document.getElementById('username').value;
+                        if(response.val != null){
+                            window.location.replace("https://localhost:3000/dash");
+                        }
+                        else{
+                            //error message + enable button
+                            document.getElementById("loginbut").disabled = false;
+                        }
+                    }
+                }
+                xhr.addEventListener("readystatechange", processRequest, false); 
+            }
+        }
+    </script>
 </body>
 
 </html>
