@@ -70,6 +70,10 @@ def markQuestion(number, answer):
     message = packData(f"mark#{number}#{answer}", 1)
     return start_send(message)
 
+def sizeQuestion():
+    message = packData("size", 1)
+    return start_send(message)
+
 # print(getQuestion(1))
 # print(getQuestion(0))
 # print(markQuestion(10, 1))

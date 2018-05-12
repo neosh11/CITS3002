@@ -4,15 +4,15 @@ import sys
 import re
 import pickle
 import random
-
+import controller.questionServe
 
 SECRET_KEY_TOKEN = b'Lalanoidwe3094yf2Nioedhoied3fc4093fasfkmakfuf209u32z'
 SECRET_KEY_PASS = b'CAcas@@3jieowiofewhf8943hfn3cin'
 AUTH_SIZE = 64
 KEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_TOKEN)
 PASSKEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_PASS)
-MAX_Q = 4
-CHOOSE_Q = 2
+MAX_Q = int(controller.questionServe.sizeQuestion())
+CHOOSE_Q = 5
 
 # Initialize secrets
 KEY.update(b"fdafvgrrewv3w")
@@ -42,7 +42,7 @@ class UserDetails:
         s = random.sample(range(1, MAX_Q), CHOOSE_Q)
         map_q = []
         for x in s:
-            map_q.append({"qnum":x, "ans":None, "tries": 0})
+            map_q.append({"qnum":x, "ans":None, "tries": 0, "correct": False})
         self.questionSet = map_q
     def setCurrentQuestion(self, num):
         if(num >=0 and num < CHOOSE_Q):

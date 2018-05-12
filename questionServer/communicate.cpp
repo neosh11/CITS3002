@@ -143,11 +143,10 @@ std::string routeResponse(std::string content)
             if (0 <= ans && ans < 4 && 0 <= qnum && qnum < questionBank.getSize())
             {
                 char v = 'F';
-                cout << questionBank.getQuestion(qnum).getAns() << " " << stoi(sm[3]) << '\n';
                 if (questionBank.getQuestion(qnum).getAns() == stoi(sm[3]))
                     v = 'T';
 
-                json = "{'value':'" + std::string(1, v) + "'}";
+                json = "{\"value\":\"" + std::string(1, v) + "\"}";
             }
         }
     }
@@ -181,6 +180,8 @@ std::string routeResponse(std::string content)
     }
     else if (content == "neosh")
         json = "HELLO DARKNESS MY OLD FRIEND, IVE COME TO BE WITH YOU AGAIN";
+    else if (content == "size")
+        json = std::to_string(questionBank.getSize());
 
     return json;
 }

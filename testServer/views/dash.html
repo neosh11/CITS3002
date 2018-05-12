@@ -19,39 +19,68 @@
             <h3>
                 Progress
             </h3>
+            <div id="results"></div>
+            <div id="remaining"></div>
+            </div>
             <button onclick="tryQuestions(0)">CLICK ME!</button>
 
         </div>
     </div>
 </body>
 <script>
-    document.getElementById("heading").innerHTML = "Welcome "+ window.localStorage.uname;
-    function tryQuestions(val){
-        if(!val) val = 0;
+    document.getElementById("heading").innerHTML = "Welcome " + window.localStorage.uname;
+    function tryQuestions(val) {
+        if (!val) val = 0;
         var xhr = new XMLHttpRequest();
-        if(window.localStorage.token && window.localStorage.uname){
-            sendDat = {'uname': window.localStorage.uname, 'token': window.localStorage.token, 'question': val}
-            xhr.open('POST', "https://localhost:3000/setQuestion", true);
+        if (window.localStorage.token && window.localStorage.uname) {
+            sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token, 'question': val }
+            xhr.open('POST', "/setQuestion", true);
             xhr.send(JSON.stringify(sendDat));
             function processRequest(e) {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var response = JSON.parse(xhr.responseText);
                     console.log(response);
 
-                    if(response.status){
-                        window.location.replace("https://localhost:3000/question");
+                    if (response.status) {
+                        window.location.replace("/question");
                     }
-                    else{
+                    else {
                         //error message + enable button
                     }
                 }
             }
         }
-        else{
+        else {
             //logoff
+            window.location.replace("/");
         }
-        xhr.addEventListener("readystatechange", processRequest, false); 
+        xhr.addEventListener("readystatechange", processRequest, false);
     }
+    function getMarks() {
+        var xhr = new XMLHttpRequest();
+        if (window.localStorage.token && window.localStorage.uname) {
+            sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token}
+            xhr.open('POST', "/getResults", true);
+            xhr.send(JSON.stringify(sendDat));
+            function processRequest(e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var percent = response.total/response.out*100;
+                    document.getElementById("results").innerHTML = percent.toFixed(2) + '%';
+                    remain = 0;
+                    response.done.forEach(element => {
+                        if(!element) remain++;
+                    });
+                    document.getElementById("remaining").innerHTML = remain+" questions remaining";
+                }
+            }
+        }
+        else {
+            //error
+        }
+        xhr.addEventListener("readystatechange", processRequest, false);
+    }
+    getMarks();
 </script>
 
 </html>

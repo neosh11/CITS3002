@@ -68,6 +68,10 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
       controller.index.getQuestionData(self, USER_MAP)
     elif(path_fix == "/markQuestion"):
       controller.index.markQuestion(self, USER_MAP)
+    elif(path_fix == "/moveQuestion"):
+      controller.index.moveQuestion(self, USER_MAP)
+    elif(path_fix == "/getResults"):
+      controller.index.getResults(self, USER_MAP)
     else:
       controller.index.getError(self)
 

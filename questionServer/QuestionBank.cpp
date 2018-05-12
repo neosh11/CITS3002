@@ -23,7 +23,7 @@ int QuestionBank::setFile(std::string file_name)
             string line;
             getline(inpFile, line);
 
-            const regex r("(.*)#(.*)#(.*)#(.*)#(.*)#(.*)");
+            const regex r("(.*)#(.*)#(.*)#(.*)#(.*)#(.*)#(.*)");
             smatch sm;
 
             if (regex_search(line, sm, r))
@@ -35,8 +35,9 @@ int QuestionBank::setFile(std::string file_name)
                     temp.push_back(sm[3]);
                     temp.push_back(sm[4]);
                     temp.push_back(sm[5]);
+                    temp.push_back(sm[6]);
 
-                    questions.push_back(Question('m', sm[2], temp, stoi(sm[6])));
+                    questions.push_back(Question('m', sm[2], temp, stoi(sm[7])));
                 }
             }
         }

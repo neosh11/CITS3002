@@ -36,7 +36,7 @@
             var xhr = new XMLHttpRequest();
             if(document.getElementById('username').value != "" && document.getElementById('password').value != ""){
                 sendDat = {'uname': document.getElementById('username').value, 'password': document.getElementById('password').value }
-                xhr.open('POST', "https://localhost:3000/login", true);
+                xhr.open('POST', "/login", true);
                 xhr.send(JSON.stringify(sendDat));
                 function processRequest(e) {
                     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -45,7 +45,7 @@
                         window.localStorage.token = response.val;
                         window.localStorage.uname = document.getElementById('username').value;
                         if(response.val != null){
-                            window.location.replace("https://localhost:3000/dash");
+                            window.location.replace("/dash");
                         }
                         else{
                             //error message + enable button
