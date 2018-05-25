@@ -1,11 +1,9 @@
-m#How many days are there in a week?#2#3#7#5#2
-m#Who is the current president of USA#Obama#Washinton#Donald#Duck#2
-m#What does C stand for in C++?#Cauliflower#Carbon#Caustic#None of the above#3
-m#Who invented petrol?#No-one#Universe#God#Not sure#3
-m#When was Jesus born?#Christmas#1st January#4th July#Not sure#0
-m#When is Santa?#Jesus#A priest#A myth#Not sure#3
-m#Why was Hitler killed?#He was mean#CIA thought he was too powerful#He ended himself#Not sure#2
-m#What is Java?#A program#A language#A community#All of the above#3
-p#Write a function to print all prime numbers until 20#void primeNumbers(void)#1
-p#Write a function to print \"Hello World\"#void helloWorld(void)#2
-p#Write a function to print \"SSL is cool\"#void ssl(void)#3
+m#Where does the execution of the program start?#user defined function#main function#void function#none of the above#1
+m#What is the index number of the last element of an array with 9 elements?#9#8#0#Programmer defined#1
+m#How many specifiers are present in access specifiers in class?#1#2#3#4#2
+m#The constants are also called as#const#preprocessor#literals#none of the above#2
+m#Which of the following is used to terminate the function declaration?#a bracket#a colon#a semicolon#none of the above#2
+m#How many max number of arguments can present in function in c99 compiler?#99#90#102#127#3
+p#Write a program to print all prime numbers until 20#void primeNumbers()#1
+p#Write a program to print \"Hello World\"#void helloWorld()#2
+p#Write a program to print \"SSL is cool\"#void ssl()#3
