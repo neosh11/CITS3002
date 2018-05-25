@@ -8,10 +8,11 @@ OBJ = server.o communicate.o ssl.o QuestionBank.o serverImp.o
 
 G++ = g++ -std=c++11
 FLAGS = -Wall -pedantic -Werror 
-OPENSSL = -L/usr/local/lib -lssl -lcrypto
+OPENSSL = -L/usr/local/lib
+OPENSSLFLAS = -lssl -lcrypto
 
 $(PROJECT) : $(OBJ)
-	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ) $(OPENSSL)
+	$(G++) $(FLAGS) -o $(PROJECT) $(OBJ) $(OPENSSL) $(OPENSSLFLAS)
 %.o : %.cpp $(HEADER)
 	$(G++) $(FLAGS) -c $<
 

@@ -9,9 +9,10 @@ from os import path
 BUFFER_STD = 4
 PORT = 5000
 IP = "localhost"
+server_address = (IP, PORT)
 
 def packData(content, type):
-    size = math.ceil((len(bytes(inp, 'utf-8')))/BUFFER_STD)
+    size = math.ceil((len(bytes(content, 'utf-8')))/BUFFER_STD)
     return ((size).to_bytes(4, "little"),(type).to_bytes(4, "little"),bytes(content, 'utf-8'))
 
 def sendData(sock, data):
@@ -42,11 +43,11 @@ def createSSLSocket():
     # path of ca
 
     #add this servers certs tooo
-    pubcert = path.dirname(path.realpath(__file__)) +'/certificates/certificate.pem'
-    keycert = path.dirname(path.realpath(__file__)) +'/certificates/key.pem'
+    pubcert = path.dirname(path.realpath(__file__)) +'/../certificates/certificate.pem'
+    keycert = path.dirname(path.realpath(__file__)) +'/../certificates/key.pem'
     context.load_cert_chain(certfile=pubcert, keyfile=keycert)
     
-    cert =  path.dirname(path.realpath(__file__)) +'/certificates/ca-valid.crt'
+    cert =  path.dirname(path.realpath(__file__)) +'/../certificates/ca-valid.crt'
     context.load_verify_locations(cert)
     context.check_hostname = True
 
@@ -62,25 +63,29 @@ def start_send(message):
 
 
 def getQuestion(number):
-    server_address = (IP, PORT)
-    message = packData(("question#"+number), 1)
+    message = packData(f"question#{number}", 1)
     return start_send(message)
 
-# Connect the socket to the port where the server is listening
-server_address = (IP, PORT)
-print('connecting to %s port %s' % server_address)
-inp = ""
-try:
-    print(ssl.get_server_certificate(server_address, ssl_version=ssl.PROTOCOL_TLS, ca_certs=None))
-    while(True):
-        # Get input
-        inp = input("message: ")
-        # Quit if input is quit
-        if(inp == "quit"):
-            break
-        message = packData(inp, 1)
-        print(start_send(message))
+def markQuestion(number, answer):
+    message = packData(f"mark#{number}#{answer}", 1)
+    return start_send(message)
 
-finally:
-    print("fin")
-    
+def sizeQuestion():
+    message = packData("size", 1)
+    return start_send(message)
+
+def getPQuestion(number):
+    message = packData(f"progQuestion#{number}", 1)
+    return start_send(message)
+
+def markPQuestion(number, answer):
+    message = packData(f"pmark#{number}#{answer}", 1)
+    return start_send(message)
+
+def sizePQuestion():
+    message = packData("psize", 1)
+    return start_send(message)
+
+# print(getQuestion(1))
+# print(getQuestion(0))
+# print(markQuestion(10, 1))

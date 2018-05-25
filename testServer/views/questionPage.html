@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Dash
+    </title>
+</head>
+
+<body>
+    <div style="text-align:center;">
+        <h1>
+            CITS3002
+        </h1>
+        <h2>
+            Answer the damn questions :)
+        </h2>
+        <div style="margin-top: 10vh">
+            <div id="Question"></div>
+            <br/>
+
+
+            <div id="options">
+                <button id="o0" onclick="submit(0)"></button>
+                <br/>
+                <button id="o1" onclick="submit(1)"></button>
+                <br/>
+                <button id="o2" onclick="submit(2)"></button>
+                <br/>
+                <button id="o3" onclick="submit(3)"></button>
+                <br/>
+            </div>
+
+            <div>
+                Number of tries :
+                <span id="tries"></span>
+                <br/>
+                <span id="mark"></span>
+                <br/>
+            </div>
+
+            <br/>
+            <div>
+                <button onclick="moveQ(-1)">Previous</button>
+                <button onclick="moveQ(1)">Next</button>
+            </div>
+            <div>
+                <a href="/dash">back to dash</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="/logout.js"></script>
+        <button onclick="logout()">Logout</button>
+    </footer>
+    <script src="questionPage.ctrl.js"></script>
+</body>
+</html>

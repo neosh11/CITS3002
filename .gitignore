@@ -14,9 +14,12 @@ test
 
 hax.cpp
 
+user_dump
+
 # Documentation
 Doxy
 questionServer/Docs/latex/*
 !questionServer/Docs/latex/refman.pdf
+
 
 extra

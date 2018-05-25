@@ -11,16 +11,31 @@
 class Question
 {
     public:
-    Question(char, std::string, std::vector<std::string>);
+    Question(std::string, std::vector<std::string>, int);
 
-    char getType();
     std::string getQString();
     std::vector<std::string> getOptions();
+    int getAns();
 
     private:
-    char type;
     std::string question;
     std::vector<std::string> options;
+    int answer;
+};
+
+class ProgQuestion
+{
+    public:
+    ProgQuestion(std::string, std::string, int);
+
+    std::string getQString();
+    std::string getFunction();
+    int getAnsFile();
+
+    private:
+    std::string question;
+    std::string function;
+    int answerFile;
 };
 
 class QuestionBank
@@ -33,6 +48,9 @@ class QuestionBank
     Question getQuestion(int);
     int getSize();
 
+    ProgQuestion getProgQuestion(int);
+    int getProgSize();
+
     // setters
     int setFile(std::string);
     
@@ -41,7 +59,9 @@ class QuestionBank
     private:
     std::string fileName;
     std::vector<Question> questions;
+    std::vector<ProgQuestion> progQuestions;
     int size;
+    int psize;
 
 };
 

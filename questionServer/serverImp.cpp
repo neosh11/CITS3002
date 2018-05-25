@@ -81,6 +81,10 @@ int Server::run()
     /***************RUN FOREVER*******************/
     //ctrl+c to kill
 
+    //Set up loops and shit
+    if (mainLoop == NULL)
+        setMainLoop(defaultDataLoop);
+
     client_len = sizeof(cli_addr);
     while (1)
     {
@@ -90,14 +94,11 @@ int Server::run()
 
         std::cout << "client: " << inet_ntoa(cli_addr.sin_addr) << ", port: " << ntohs(cli_addr.sin_port) << ", socket: " << client_fd << '\n';
 
-        if (mainLoop == NULL)
-        {
-            setMainLoop(defaultDataLoop);
+        try {
             mainLoop(ctx, server_fd, client_fd);
         }
-        else
-        {
-            mainLoop(ctx, server_fd, client_fd);
+        catch (const std::exception& e) { // caught by reference to base
+            std::cout << " a standard exception was caught, with message '"<< e.what() << "'\n";
         }
 
         /* Terminate communication on a socket */
@@ -149,7 +150,6 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
     {
         /* Get the client's certificate (optional) */
         client_cert = SSL_get_peer_certificate(ssl);
-        
         if (client_cert != NULL)
         {
             printf("Client certificate:\n");
@@ -167,7 +167,6 @@ void defaultSSLDataLoop(SSL_CTX * ctx,int server_fd, int client_fd)
             X509_free(client_cert);
             actionSSL(ssl);
         }
-
 
         /*------- DATA EXCHANGE - Receive message and send reply. -------*/
         /* Receive data from the SSL client */
