@@ -308,6 +308,7 @@ def getResults(obj, USER_MAP):
       ##Authorization
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           questions = USER_MAP[post_data["uname"]].questionSet
+          pquestions = USER_MAP[post_data["uname"]].pQuestionSet
           rev = "{}"
           jsonrev = json.loads(rev)
           done = []
@@ -326,6 +327,27 @@ def getResults(obj, USER_MAP):
           jsonrev["marks"] = marks
           jsonrev["total"] = sum(marks)
           jsonrev["out"] = 3*controller.auth.CHOOSE_Q
+
+
+
+          pdone = []
+          pmarks = []
+          for q in pquestions:
+              if(q["tries"] < 3 and not q["correct"]):
+                  pdone.append(False)
+              else:
+                  pdone.append(True)
+              if(q["correct"]):
+                  pmarks.append(4-q["tries"])
+              else:
+                  pmarks.append(0)
+
+          jsonrev["pdone"] = pdone
+          jsonrev["pmarks"] = pmarks
+          jsonrev["ptotal"] = sum(pmarks)
+          jsonrev["pout"] = 3*controller.auth.CHOOSE_P_Q
+
+
           rev = json.dumps(jsonrev)
     except:
       rev = '{"status": "fail"}'

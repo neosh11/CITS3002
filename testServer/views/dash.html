@@ -8,44 +8,58 @@
 </head>
 
 <body>
-    <div style="text-align:center;">
-        <h1>
-            CITS3002
-        </h1>
-        <h2 id="heading">
 
-        </h2>
-        <div style="margin-top: 10vh">
-            <h3>
-                Progress
-            </h3>
-            <div id="results"></div>
-            <div id="remaining"></div>
-            </div>
-            <a href="/question">MCQ Questions!</a><br/>
-            <a href="/pquestion">Programming question!</a>
+<div style="text-align:center;">
+    <h1>
+        CITS3002
+    </h1>
+    <h2 id="heading"></h2>
 
-        </div>
+    <div style="margin-top: 10vh">
+        <h3>
+            Progress
+        </h3>
+        <div id="results"></div>
+        <div id="remaining"></div>
+        <a href="/question">MCQ Questions!</a>
+        <br/>
+
+        <hr>
+        <div id="presults"></div>
+        <div id="premaining"></div>
+        <a href="/pquestion">Programming question!</a>
     </div>
+</div>
+
 </body>
 <script>
     document.getElementById("heading").innerHTML = "Welcome " + window.localStorage.uname;
     function getMarks() {
         var xhr = new XMLHttpRequest();
         if (window.localStorage.token && window.localStorage.uname) {
-            sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token}
+            sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token }
             xhr.open('POST', "/getResults", true);
             xhr.send(JSON.stringify(sendDat));
             function processRequest(e) {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var response = JSON.parse(xhr.responseText);
-                    var percent = response.total/response.out*100;
+                    var remain = 0;
+                    var percent = response.total / response.out * 100;
                     document.getElementById("results").innerHTML = percent.toFixed(2) + '%';
-                    remain = 0;
+                    
                     response.done.forEach(element => {
-                        if(!element) remain++;
+                        if (!element) remain++;
                     });
-                    document.getElementById("remaining").innerHTML = remain+" questions remaining";
+                    document.getElementById("remaining").innerHTML = remain + " questions remaining";
+
+                    //Programming
+                    percent = response.ptotal / response.pout * 100;
+                    document.getElementById("presults").innerHTML = percent.toFixed(2) + '%';
+                    remain = 0;
+                    response.pdone.forEach(element => {
+                        if (!element) remain++;
+                    });
+                    document.getElementById("premaining").innerHTML = remain + " questions remaining";
                 }
             }
         }
