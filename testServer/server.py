@@ -63,27 +63,26 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 
   def do_POST(self):
     global USER_MAP
-    path_fix = str(Path(self.path))
-    if( path_fix =="/login"):
+    if( self.path =="/login"):
       controller.index.postLogin(self, USER_MAP)
-    elif(path_fix == "/setQuestion"):
+    elif(self.path == "/setQuestion"):
       controller.index.setQuestion(self, USER_MAP)
 
-    elif(path_fix == "/getQuestionData"):
+    elif(self.path == "/getQuestionData"):
       controller.index.getQuestionData(self, USER_MAP)
-    elif(path_fix == "/markQuestion"):
+    elif(self.path == "/markQuestion"):
       controller.index.markQuestion(self, USER_MAP)
-    elif(path_fix == "/moveQuestion"):
+    elif(self.path == "/moveQuestion"):
       controller.index.moveQuestion(self, USER_MAP)
     #Programming question
-    elif(path_fix == "/getPQuestionData"):
+    elif(self.path == "/getPQuestionData"):
       controller.index.getPQuestionData(self, USER_MAP)
-    elif(path_fix == "/markPQuestion"):
+    elif(self.path == "/markPQuestion"):
       controller.index.markPQuestion(self, USER_MAP)
-    elif(path_fix == "/movePQuestion"):
+    elif(self.path == "/movePQuestion"):
       controller.index.movePQuestion(self, USER_MAP)
 
-    elif(path_fix == "/getResults"):
+    elif(self.path == "/getResults"):
       controller.index.getResults(self, USER_MAP)
     else:
       controller.index.getError(self)
