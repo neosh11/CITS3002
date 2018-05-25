@@ -155,7 +155,7 @@ string exec(const char* cmd)
 string createAndRunFile(string pathname, string filename, string function, string functionName)
 {
     // Checks if the user has defined main() insted of the function or used another class
-    if(function.find("main()") || !function.find(functionName) || function.find("#include"))
+    if(function.find("main()") != string::npos || function.find("#include") != string::npos)
         return "E";
 
     // Create file for user's answer, read through the string/file and remove any dangerous header files
