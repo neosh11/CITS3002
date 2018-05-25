@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['question',['Question',['../classQuestion.html',1,'']]],
-  ['questionbank',['QuestionBank',['../classQuestionBank.html',1,'']]]
+  ['progquestion',['ProgQuestion',['../classProgQuestion.html',1,'']]]
 ];

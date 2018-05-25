@@ -113,7 +113,17 @@ $(document).ready(function(){initNavTree('md_Doxy_introduction.html','');});
 <div class="textblock"><p class="">This program launches the server on the specified port on the header file (localhost:5000).</p>
 <p class="">This server accepts commands such as:</p>
 <h4>question#n</h4>
-<p class="">(for n in (0, max)) it returns a JSON string containing the question( string, type, options) </p>
+<p class="">(for n in [0, size)) it returns a JSON string containing the question( string, type, options)</p>
+<h4>mark#n#option</h4>
+<p class="">(for n in [0, size) and option in [0,3] it returns a JSON string containing the question( string, type, options)</p>
+<h4>progQuestion#n</h4>
+<p class="">(for n in [0, psize)) it returns a JSON string containing the question( string, type, options)</p>
+<h4>pmark#n#code</h4>
+<p class="">(for n in [0, psize) and code is a ) it returns a JSON string containing the question( string, type, options)</p>
+<h4>size</h4>
+<p class="">Number of MCQ</p>
+<h4>psize</h4>
+<p class="">Number of Programming questions </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
