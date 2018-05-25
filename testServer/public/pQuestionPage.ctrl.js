@@ -3,13 +3,13 @@ function updateStats(last, correct, tries) {
         document.getElementById("tries").innerHTML = tries;
         var res = document.getElementById("status");
         if (correct) {
-            res.innerText = "Correct Answer";
-            res.style.color = "green";
+            document.getElementById("status").innerHTML = "Right";
+            document.getElementById("status").style.backgroundColor = "green";
             document.getElementById("mark").innerHTML = `mark: ${4 - tries}`;
         }
         else {
-            res.innerText = "Wrong Answer";
-            res.style.color = "red";
+            document.getElementById("status").innerHTML = "WRONG WRONG WRONG WRONG!!!";
+            document.getElementById("status").style.backgroundColor = "red";
             document.getElementById("mark").innerHTML = `mark: ${0}`;
         }
     }
