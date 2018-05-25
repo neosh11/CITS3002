@@ -10,8 +10,8 @@ document.getElementById("heading").innerHTML = "Welcome " + window.localStorage.
                     var response = JSON.parse(xhr.responseText);
                     var remain = 0;
                     var percent = response.total / response.out * 100;
-                    document.getElementById("outof").innerHTML = `${response.total}/${response.out}`;
-                    document.getElementById("results").innerHTML = percent.toFixed(2) + '%';
+                    document.getElementById("results").innerHTML = percent.toFixed(2) + '% Completed';
+                    document.getElementById("outof").innerHTML = "Score: " + `${response.total}/${response.out}`;                    
                     
                     response.done.forEach(element => {
                         if (!element) remain++;
@@ -20,8 +20,8 @@ document.getElementById("heading").innerHTML = "Welcome " + window.localStorage.
 
                     //Programming
                     percent = response.ptotal / response.pout * 100;
-                    document.getElementById("poutof").innerHTML = `${response.ptotal}/${response.pout}`;
-                    document.getElementById("presults").innerHTML = percent.toFixed(2) + '%';
+                    document.getElementById("presults").innerHTML = percent.toFixed(2) + '% Completed';
+                    document.getElementById("poutof").innerHTML = "Score: " + `${response.ptotal}/${response.pout}`;                    
                     remain = 0;
                     response.pdone.forEach(element => {
                         if (!element) remain++;

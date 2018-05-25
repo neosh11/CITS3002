@@ -11,13 +11,13 @@ function updateStats(last, correct, tries) {
             res.style.color = "red";
         }
         mark = correct ? 4 - tries : 0;
-        document.getElementById("mark").innerHTML = `mark: ${mark}`;
+        document.getElementById("mark").innerHTML = `Mark: ${mark}`;
     }
     else {
         document.getElementById("tries").innerHTML = 0;
         document.getElementById("filler").checked = true;
         document.getElementById("response").innerText = "";
-        document.getElementById("response").style.backgroundColor = null;
+        document.getElementById("response").style.color = null;
         document.getElementById("mark").innerHTML = "";
     }
 }
