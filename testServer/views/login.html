@@ -2,32 +2,31 @@
 <html>
 
 <head>
-    <title>
-        Login
-    </title>
+    <title>Login</title>
+    <style>
+        input {
+            padding: 5px;
+            height: 15px;
+            width: 200px;
+            margin: 2px;
+        }
+        #loginbut:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
-<body>
-    <div style="text-align:center;">
-        <h1>
-            CITS3002
-        </h1>
-        <div style="margin-top: 30vh">
-            <h2>
-                Login
-            </h2>
-            <form>
-                <label for="#username">Username</label>
-                <br>
-                <input id="username" type="text">
-                <br>
-                <label for="#password">Password</label>
-                <br>
-                <input id="password" type="password">
-                <br>
-                <button id="loginbut" type="button" onclick="tryLogin()">Login</button>
-            </form>
-        </div>
+<body style="text-align:center;">
+    <h1> CITS3002: Networks and Security <br> Project </h1>
+    <div style="margin: 30vh auto; width: 22%; overflow: hidden;">
+        <form action="questions" method="GET">            
+            <fieldset style="padding: 3vh; margin: 0 0 1vh 0;">
+                <legend style="text-align:left; font-size: 20px;">Login :</legend>
+                <input id="username" type="text" placeholder="Username" required><br>
+                <input id="password" type="password" placeholder="Password" required><br>
+            </fieldset>
+            <input id="loginbut" type="submit" value="Login" onclick="event.preventDefault(); tryLogin();" style="float:right; height: 30px; width: 75px;">                
+        </form>
     </div>
     <script src="login.ctrl.js"></script>
 </body>

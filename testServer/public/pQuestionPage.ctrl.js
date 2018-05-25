@@ -1,20 +1,23 @@
 function updateStats(last, correct, tries) {
     if (tries > 0) {
         document.getElementById("tries").innerHTML = tries;
+        var res = document.getElementById("status");
         if (correct) {
-            document.getElementById("status").innerHTML = "Right";
-            document.getElementById("status").style.backgroundColor = "green";
+            res.innerText = "Correct Answer";
+            res.style.color = "green";
+            document.getElementById("mark").innerHTML = `mark: ${4 - tries}`;
         }
         else {
-            document.getElementById("status").innerHTML = "WRONG WRONG WRONG WRONG!!!";
-            document.getElementById("status").style.backgroundColor = "red";
+            res.innerText = "Wrong Answer";
+            res.style.color = "red";
+            document.getElementById("mark").innerHTML = `mark: ${0}`;
         }
     }
     else {
         document.getElementById("tries").innerHTML = 0;
         document.getElementById("status").innerHTML = "";
         document.getElementById("status").style.backgroundColor = null;
-
+        document.getElementById("mark").innerHTML = "";        
     }
 }
 
@@ -53,7 +56,7 @@ function loadPage() {
 
 function submit() {
     var xhr2 = new XMLHttpRequest();
-    sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token, 'code': document.getElementById("input").value }
+    sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token, 'code': document.getElementById("input").value}
     xhr2.open('POST', "/markPQuestion", true);
     xhr2.send(JSON.stringify(sendDat));
     function processRequestSubmit(e) {

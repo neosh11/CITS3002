@@ -1,20 +1,23 @@
-function clearStats() {
-    document.getElementById("o0").style.backgroundColor = null;
-    document.getElementById("o1").style.backgroundColor = null;
-    document.getElementById("o2").style.backgroundColor = null;
-    document.getElementById("o3").style.backgroundColor = null;
-}
 function updateStats(last, correct, tries) {
-    clearStats();
-    if (tries > 0) {
+    if(tries > 0) {
         document.getElementById("tries").innerHTML = tries;
-        color = correct ? "green" : "red";
-        document.getElementById(("o" + last)).style.backgroundColor = color;
+        var res = document.getElementById("response");
+        if (correct) {
+            res.innerText = "Correct Answer";
+            res.style.color = "green";
+        }
+        else {
+            res.innerText = "Wrong Answer";
+            res.style.color = "red";
+        }
         mark = correct ? 4 - tries : 0;
         document.getElementById("mark").innerHTML = `mark: ${mark}`;
     }
     else {
         document.getElementById("tries").innerHTML = 0;
+        document.getElementById("filler").checked = true;
+        document.getElementById("response").innerText = "";
+        document.getElementById("response").style.backgroundColor = null;
         document.getElementById("mark").innerHTML = "";
     }
 }
@@ -29,7 +32,7 @@ function loadPage() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
             console.log(response);
-            if (response.question) {
+            if (response.options) {
                 document.getElementById("Question").innerHTML = response.question;
                 document.getElementById("o0").innerHTML = response.options[0];
                 document.getElementById("o1").innerHTML = response.options[1];
@@ -45,7 +48,9 @@ function loadPage() {
     xhr.addEventListener("readystatechange", processRequest, false);
 }
 
-function submit(num) {
+function submit() {
+    var num =  Array.from(document.getElementsByName("answer")).find(r => r.checked).value;
+    console.log(num);
     var xhr2 = new XMLHttpRequest();
     sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token, 'option': num }
     xhr2.open('POST', "/markQuestion", true);
@@ -88,7 +93,6 @@ function moveQ(val) {
     }
     xhr2.addEventListener("readystatechange", processRequestSubmit, false);
 }
-
 
 // Init page
 loadPage();
