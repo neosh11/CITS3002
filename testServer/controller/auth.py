@@ -13,6 +13,8 @@ KEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_TOKEN)
 PASSKEY = blake2b(digest_size=AUTH_SIZE, key=SECRET_KEY_PASS)
 MAX_Q = int(controller.questionServe.sizeQuestion())
 CHOOSE_Q = 5
+MAX_P_Q = int(controller.questionServe.sizePQuestion())
+CHOOSE_P_Q = 2
 
 # Initialize secrets
 KEY.update(b"fdafvgrrewv3w")
@@ -33,20 +35,34 @@ class UserDetails:
         self.password = hashpass(password)
         self.token = hashit(name)
         self.currentQuestion = 0
+        self.currentPQuestion = 0
         #question set is made when user set init
 
     def updateToken(self):
         self.token = hashit(self.name)
 
     def makeQuestionSet(self):
-        s = random.sample(range(1, MAX_Q), CHOOSE_Q)
+        s = random.sample(range(0, MAX_Q), CHOOSE_Q)
         map_q = []
         for x in s:
             map_q.append({"qnum":x, "ans":None, "tries": 0, "correct": False})
         self.questionSet = map_q
+
     def setCurrentQuestion(self, num):
         if(num >=0 and num < CHOOSE_Q):
             self.currentQuestion = num
+
+    #Programming questions
+    def makePQuestionSet(self):
+        s = random.sample(range(0, MAX_P_Q), CHOOSE_P_Q)
+        map_q = []
+        for x in s:
+            map_q.append({"qnum":x, "ans":None, "tries": 0, "correct": False})
+        self.pQuestionSet = map_q
+
+    def setCurrentPQuestion(self, num):
+        if(num >=0 and num < CHOOSE_Q):
+            self.currentPQuestion = num
 
 users = []
 # Initialize all users
@@ -64,6 +80,7 @@ def init_users_map(fileName):
     usernameMap = {}
     for u in users:
         u.makeQuestionSet()
+        u.makePQuestionSet()
         usernameMap[u.name] = u
     return usernameMap
 

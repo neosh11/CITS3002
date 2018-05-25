@@ -74,6 +74,18 @@ def sizeQuestion():
     message = packData("size", 1)
     return start_send(message)
 
+def getPQuestion(number):
+    message = packData(f"progQuestion#{number}", 1)
+    return start_send(message)
+
+def markPQuestion(number, answer):
+    message = packData(f"pmark#{number}#{answer}", 1)
+    return start_send(message)
+
+def sizePQuestion():
+    message = packData("psize", 1)
+    return start_send(message)
+
 # print(getQuestion(1))
 # print(getQuestion(0))
 # print(markQuestion(10, 1))

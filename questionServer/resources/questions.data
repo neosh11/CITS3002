@@ -6,3 +6,6 @@ m#When was Jesus born?#Christmas#1st January#4th July#Not sure#0
 m#When is Santa?#Jesus#A priest#A myth#Not sure#3
 m#Why was Hitler killed?#He was mean#CIA thought he was too powerful#He ended himself#Not sure#2
 m#What is Java?#A program#A language#A community#All of the above#3
+p#Write a program to print all prime numbers until 20#void primeNumbers()#1
+p#Write a program to print \"Hello World\"#void helloWorld()#2
+p#Write a program to print \"SSL is cool\"#void ssl()#3

@@ -37,7 +37,14 @@ int QuestionBank::setFile(std::string file_name)
                     temp.push_back(sm[5]);
                     temp.push_back(sm[6]);
 
-                    questions.push_back(Question('m', sm[2], temp, stoi(sm[7])));
+                    questions.push_back(Question(sm[2], temp, stoi(sm[7])));
+                }
+            }
+            else if(regex_search(line, sm,  regex("(.*)#(.*)#(.*)#(.*)")))
+            {
+                if (sm[1] == 'p')
+                {
+                    progQuestions.push_back(ProgQuestion(sm[2], sm[3], stoi(sm[4])));
                 }
             }
         }
@@ -47,6 +54,7 @@ int QuestionBank::setFile(std::string file_name)
         cout << "faile\n";
     }
     size = questions.size();
+    psize = progQuestions.size();
     inpFile.close();
 
     return 0;
@@ -59,27 +67,33 @@ string QuestionBank::getFileName()
 
 Question QuestionBank::getQuestion(int n)
 {
-    if (n >= 0 && (unsigned int)n < questions.size())
+    if (n >= 0 && (unsigned int)n < size)
         return questions[n];
+    else throw out_of_range("Index out of bounds!");
+}
+
+ProgQuestion QuestionBank::getProgQuestion(int n)
+{
+    if (n >= 0 && (unsigned int)n < psize)
+        return progQuestions[n];
     else throw out_of_range("Index out of bounds!");
 }
 
 int  QuestionBank::getSize(){
     return size;
 }
+int  QuestionBank::getProgSize(){
+    return psize;
+}
 
 /*******************QUESTION CLASS************************/
-Question::Question(char t, std::string s, std::vector<std::string> o, int a)
+Question::Question(std::string s, std::vector<std::string> o, int a)
 {
-    type = t;
     question = s;
     options = o;
     answer = a;
 }
-char Question::getType()
-{
-    return type;
-}
+
 std::string Question::getQString()
 {
     return question;
@@ -92,4 +106,27 @@ std::vector<std::string> Question::getOptions()
 int Question::getAns()
 {
     return answer;
+}
+
+
+/*******************ProgQuestion CLASS************************/
+ProgQuestion::ProgQuestion(std::string s, std::string f, int a)
+{
+    question = s;
+    function = f;
+    answerFile = a;
+}
+
+std::string ProgQuestion::getQString()
+{
+    return question;
+}
+std::string ProgQuestion::getFunction()
+{
+    return function;
+}
+
+int ProgQuestion::getAnsFile()
+{
+    return answerFile;
 } 

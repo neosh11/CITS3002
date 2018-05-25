@@ -49,6 +49,9 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
       controller.index.getDash(self)
     elif(self.path == "/question"):
       controller.index.getQuestionPage(self)
+    elif(self.path == "/pquestion"):
+      controller.index.getPQuestionPage(self)
+
     elif(Path(x).is_file()):
       controller.index.getPublic(self, path_fix)
     else:
@@ -64,12 +67,21 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
       controller.index.postLogin(self, USER_MAP)
     elif(path_fix == "/setQuestion"):
       controller.index.setQuestion(self, USER_MAP)
+
     elif(path_fix == "/getQuestionData"):
       controller.index.getQuestionData(self, USER_MAP)
     elif(path_fix == "/markQuestion"):
       controller.index.markQuestion(self, USER_MAP)
     elif(path_fix == "/moveQuestion"):
       controller.index.moveQuestion(self, USER_MAP)
+    #Programming question
+    elif(path_fix == "/getPQuestionData"):
+      controller.index.getPQuestionData(self, USER_MAP)
+    elif(path_fix == "/markPQuestion"):
+      controller.index.markPQuestion(self, USER_MAP)
+    elif(path_fix == "/movePQuestion"):
+      controller.index.movePQuestion(self, USER_MAP)
+
     elif(path_fix == "/getResults"):
       controller.index.getResults(self, USER_MAP)
     else:

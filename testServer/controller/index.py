@@ -50,6 +50,15 @@ def getQuestionPage(obj):
     obj.wfile.write(f.read())
     f.close()
 
+def getPQuestionPage(obj):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "text/html")
+    obj.end_headers()
+    f = open(views_directory + "/pQuestionPage.html", 'rb')
+    obj.wfile.write(f.read())
+    f.close()
+
 
 # POST STUFF
 def postLogin(obj, USER_MAP):
@@ -186,6 +195,105 @@ def moveQuestion(obj, USER_MAP):
       rev = '{"status": "fail"}'
 
     obj.wfile.write(bytes(rev, 'utf-8'))
+
+#################################################################################################################################################################
+def getPQuestionData(obj, USER_MAP):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "application/json")
+    obj.end_headers()
+    rev = '{"question": null}'
+    try:
+      content_length = int(obj.headers['Content-Length']) # <--- Gets the size of data
+      post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data
+
+      ##Authorization
+      if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
+          i = USER_MAP[post_data["uname"]].currentPQuestion
+          print(USER_MAP[post_data["uname"]].currentPQuestion)
+          qnum = USER_MAP[post_data["uname"]].pQuestionSet[i]
+          print(qnum["qnum"])
+          rev = questionServe.getPQuestion(qnum["qnum"])
+          print(rev)
+          jsonrev = json.loads(rev)
+          jsonrev["tries"] = qnum["tries"]
+          jsonrev["ans"] = qnum["ans"]
+          jsonrev["correct"] = qnum["correct"]
+          jsonrev["totalQ"] = controller.auth.CHOOSE_Q
+          rev = json.dumps(jsonrev)
+    except:
+      rev = '{"question": null}'
+    obj.wfile.write(bytes(rev, 'utf-8'))
+
+def markPQuestion(obj, USER_MAP):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "application/json")
+    obj.end_headers()
+    rev = '{"question": null}'
+    try:
+      content_length = int(obj.headers['Content-Length']) # <--- Gets the size of data
+      post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data
+
+      ##Authorization
+      if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
+
+          i = USER_MAP[post_data["uname"]].currentPQuestion
+          qnum = USER_MAP[post_data["uname"]].pQuestionSet[i]
+          if(qnum["correct"] or qnum["tries"] >=3):
+              jsonrev = {}
+              jsonrev["tries"] = qnum["tries"]
+              jsonrev["ans"] = qnum["ans"]
+              jsonrev["correct"] = qnum["correct"]
+              rev = json.dumps(jsonrev)
+              print(rev)
+          else:
+            rev = questionServe.markPQuestion(qnum["qnum"], post_data["code"])
+            print(rev)
+            jsonrev = json.loads(rev)
+            if(jsonrev["value"] == "T"):
+                jsonrev["correct"] = qnum["correct"] = True
+            qnum["tries"] += 1
+            qnum["ans"] = post_data["code"]
+            jsonrev["tries"] = qnum["tries"]
+            jsonrev["ans"] = qnum["ans"]
+            rev = json.dumps(jsonrev)
+           
+    except:
+      rev = '{"question": null}'
+    obj.wfile.write(bytes(rev, 'utf-8'))
+
+def movePQuestion(obj, USER_MAP):
+    obj.send_response(200)
+    # Send headers
+    obj.send_header('Content-type', "application/json")
+    obj.end_headers()
+    rev = '{"status": "fail"}'
+    try:
+      content_length = int(obj.headers['Content-Length']) # <--- Gets the size of data
+      post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data
+
+      ##Authorization
+      if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
+          numQuestions = controller.auth.CHOOSE_P_Q
+          print(post_data)
+          rev = "{}"
+          jsonrev = json.loads(rev)
+          if(post_data["val"] >= 0):
+            USER_MAP[post_data["uname"]].currentPQuestion = (USER_MAP[post_data["uname"]].currentPQuestion+post_data["val"])%numQuestions
+            jsonrev["status"] = "success"
+          elif(post_data["val"] < 0):
+            USER_MAP[post_data["uname"]].currentPQuestion = (numQuestions +USER_MAP[post_data["uname"]].currentPQuestion+ (post_data["val"]%numQuestions))%numQuestions
+            jsonrev["status"] = "success"
+          else:
+              jsonrev["status"] = "fail"
+          rev = json.dumps(jsonrev)
+    except:
+      rev = '{"status": "fail"}'
+
+    obj.wfile.write(bytes(rev, 'utf-8'))
+
+    ##########################################################################################################################################
 
 def getResults(obj, USER_MAP):
     obj.send_response(200)

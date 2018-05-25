@@ -22,40 +22,14 @@
             <div id="results"></div>
             <div id="remaining"></div>
             </div>
-            <button onclick="tryQuestions(0)">CLICK ME!</button>
+            <a href="/question">MCQ Questions!</a><br/>
+            <a href="/pquestion">Programming question!</a>
 
         </div>
     </div>
 </body>
 <script>
     document.getElementById("heading").innerHTML = "Welcome " + window.localStorage.uname;
-    function tryQuestions(val) {
-        if (!val) val = 0;
-        var xhr = new XMLHttpRequest();
-        if (window.localStorage.token && window.localStorage.uname) {
-            sendDat = { 'uname': window.localStorage.uname, 'token': window.localStorage.token, 'question': val }
-            xhr.open('POST', "/setQuestion", true);
-            xhr.send(JSON.stringify(sendDat));
-            function processRequest(e) {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    console.log(response);
-
-                    if (response.status) {
-                        window.location.replace("/question");
-                    }
-                    else {
-                        //error message + enable button
-                    }
-                }
-            }
-        }
-        else {
-            //logoff
-            window.location.replace("/");
-        }
-        xhr.addEventListener("readystatechange", processRequest, false);
-    }
     function getMarks() {
         var xhr = new XMLHttpRequest();
         if (window.localStorage.token && window.localStorage.uname) {

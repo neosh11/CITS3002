@@ -128,6 +128,14 @@ bool sendContent(SSL *ssl, string content, int type)
     return true;
 }
 
+/**
+ * Returns "T", "F" or "Error"
+ * */
+std::string markFunction(std::string function, std::string functionName, std::string solutionFile)
+{
+    return "F";
+}
+
 std::string routeResponse(std::string content)
 {
     std::string json = "";
@@ -135,7 +143,6 @@ std::string routeResponse(std::string content)
 
     if (regex_search(content, sm, regex("(.*)#(.*)#(.*)")))
     {
-
         if (sm[1] == "mark" && sm[2] != "" && sm[3] != "")
         {
             int qnum = stoi(sm[2]);
@@ -145,8 +152,18 @@ std::string routeResponse(std::string content)
                 char v = 'F';
                 if (questionBank.getQuestion(qnum).getAns() == stoi(sm[3]))
                     v = 'T';
-
                 json = "{\"value\":\"" + std::string(1, v) + "\"}";
+            }
+        }
+        if (sm[1] == "pmark" && sm[2] != "" && sm[3] != "")
+        {
+            int qnum = stoi(sm[2]);
+            std::string ans = sm[3];
+            if (0 <= qnum && qnum < questionBank.getProgSize())
+            {
+                ProgQuestion x = questionBank.getProgQuestion(qnum);
+                std::string val = markFunction(ans, x.getFunction(), std::to_string(x.getAnsFile())+".c");
+                json = "{\"value\":\"" + val + "\"}";
             }
         }
     }
@@ -177,11 +194,28 @@ std::string routeResponse(std::string content)
                 json += "}";
             }
         }
+        else if (sm[1] == "progQuestion" && sm[2] != "")
+        {
+            int num = stoi(sm[2]);
+            if (0 <= num && num < questionBank.getProgSize())
+            {
+                json = "{";
+                json += "\"id\":\"" + string(sm[2]) + "\"";
+                json += ",";
+                json += "\"question\":\"" + questionBank.getProgQuestion(num).getQString() + "\"";
+                json += ",";
+                json += "\"function\":";
+                json += "\"" + questionBank.getProgQuestion(num).getFunction() + "\"";
+                json += "}";
+            }
+        }
     }
     else if (content == "neosh")
         json = "HELLO DARKNESS MY OLD FRIEND, IVE COME TO BE WITH YOU AGAIN";
     else if (content == "size")
         json = std::to_string(questionBank.getSize());
+    else if (content == "psize")
+        json = std::to_string(questionBank.getProgSize());
 
     return json;
 }
