@@ -154,6 +154,10 @@ string exec(const char* cmd)
 // test it with the given solution 
 string createAndRunFile(string pathname, string filename, string function, string functionName)
 {
+    // Checks if the user has defined main() insted of the function or used another class
+    if(function.find("main()") || !function.find(functionName) || function.find("#include"))
+        return "E";
+
     // Create file for user's answer, read through the string/file and remove any dangerous header files
     string headers = "#include <iostream>\n#include <cstring>\n#include <cmath>\n#include <cstdio>\n#include <cstdlib>\n#include <cstdbool>\n\nusing namespace std;\n";
     string intmain = "int main() {\n\n\t" + functionName + ";\n\treturn EXIT_SUCCESS;\n}";
@@ -244,25 +248,6 @@ string markFunction(string function, string functionName, string solutionFile)
 
     string userAnswer = "E", solAnswer = "E";
 
-    // Remove and header files the user may have declared, Currently breaks the program if a header file is declared
-    std::string new_user_func = "";
-    for(std::string::size_type i = 0; i < function.size(); i++)
-    {
-        if (function[i] == '#' && function.substr(i,8).compare("#include") == 0) // if it finds a #include
-        {
-            std::string::size_type j = i;
-
-            while(function[j] != '>')
-                j++;
-
-            i = j+1;
-        }
-        else
-            new_user_func += function[i];        
-    }
-
-    function = new_user_func;
-
     // Open/create a directory called "testQuestions" in the question server to test user's file and solution file
     DIR *dir = opendir(new_folder);
     if (dir)
@@ -271,7 +256,7 @@ string markFunction(string function, string functionName, string solutionFile)
         closedir(dir);
         chdir(new_folder);
 
-        userAnswer = createAndRunFile((string)user_path, user_file, new_user_func, functionName);
+        userAnswer = createAndRunFile((string)user_path, user_file, function, functionName);
         solAnswer = createAndRunFile((string)sol_path, sol_file, solFunction, functionName);
         
         cout << userAnswer << "\n\n" << solAnswer << "\n";
@@ -282,7 +267,7 @@ string markFunction(string function, string functionName, string solutionFile)
         mkdir(new_folder, 0700);
         chdir(new_folder);
 
-        userAnswer = createAndRunFile((string)user_path, user_file, new_user_func, functionName);
+        userAnswer = createAndRunFile((string)user_path, user_file, function, functionName);
         solAnswer = createAndRunFile((string)sol_path, sol_file, solFunction, functionName);
 
         cout << userAnswer << "\n\n" << solAnswer << "\n";
