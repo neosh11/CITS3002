@@ -4,21 +4,32 @@
 #include "globals.h"
 #include "ssl.h"
 
-#include <iostream>
-#include <string.h>
+#include <memory>
+#include <stdexcept>
+#include <array>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <cerrno>
+
+#include <cstring>
 #include <cmath>
 #include <regex>
 
 #include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h> //inet_ntoa
 
-#include "QuestionBank.h"
+// Constants for testing environment
+#define MAX_PATH_SIZE 1024 // Max. byte size for the path of file
+#define BUFFER_SIZE 128 // Max byte size for pipe Buffer 
+// ***********************************
+
+
 /** @file */ 
 
 ///The default port the Server runs on if no port specified

@@ -128,12 +128,178 @@ bool sendContent(SSL *ssl, string content, int type)
     return true;
 }
 
-/**
- * Returns "T", "F" or "Error"
- * */
-std::string markFunction(std::string function, std::string functionName, std::string solutionFile)
+// Function to execute command and return output
+// Used to run short answer's solution and user's answer
+// Taken from:
+// https://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c-using-posix
+string exec(const char* cmd) 
 {
-    return "F";
+    array<char, BUFFER_SIZE> buffer;
+    string result;
+    shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+
+    if (!pipe) 
+        throw runtime_error("popen() failed!");
+
+    while (!feof(pipe.get())) 
+    {
+        if (fgets(buffer.data(), BUFFER_SIZE, pipe.get()) != nullptr)
+            result += buffer.data();
+    }
+
+    return result;
+}
+
+// A function to create a file for the user's answer, compile and execute it and
+// test it with the given solution 
+string createAndRunFile(string pathname, string filename, string function, string functionName)
+{
+    // Create file for user's answer, read through the string/file and remove any dangerous header files
+    string headers = "#include <iostream>\n#include <cstring>\n#include <cmath>\n#include <cstdio>\n#include <cstdlib>\n#include <cstdbool>\n\nusing namespace std;\n";
+    string intmain = "int main() {\n\n\t" + functionName + ";\n\treturn EXIT_SUCCESS;\n}";
+    ofstream outfile;
+    outfile.open(pathname);
+    outfile << headers << endl << function << endl << intmain << std::endl;
+    outfile.close();
+
+    string compile = "g++ " + pathname + " -o " + filename; // the command to compile the file as a string
+    string run = "./"+filename; // the command to run the compiled string as a string
+
+    // exec first time to compile file
+    string compiled = exec(compile.c_str());
+
+    string answer;
+
+    //exec second time to run file if no errors generated
+    if (compiled.empty())
+        answer = exec(run.c_str());
+    else 
+        answer = "E";
+
+    // Delete file after it runs
+    remove(pathname.c_str());
+    remove(filename.c_str());
+
+    return answer;
+}
+
+/**
+ * Function to mark the user's answer with the solution
+ * Returns "T", "F" or "E"
+ * */
+string markFunction(string function, string functionName, string solutionFile)
+{
+    char cwd[MAX_PATH_SIZE];
+
+    if (getcwd(cwd, sizeof(cwd)) == NULL)
+    {
+        perror("CURR_DIR ERROR");
+        return "E";
+    }
+
+    char new_folder[MAX_PATH_SIZE];
+    
+    strcpy(new_folder, cwd);    
+    strcat(new_folder, "/testQuestions");
+
+    string saved_solution = cwd;
+    saved_solution += ( "/resources/" + solutionFile );
+
+    // Read from file and save to string "solFunction"
+
+    string line, solFunction;
+    ifstream solution (saved_solution);
+    if (solution.is_open())
+    {
+        while ( getline (solution, line) )
+            solFunction = solFunction + line + "\n";
+        solution.close();
+    }
+    else
+        return "E";
+
+    // End read file *********
+
+    // Randomize user and solution filenames and append to path
+    string user_path = new_folder, sol_path = new_folder; // path to user's answer and solution answer
+    user_path += '/';
+    sol_path += '/';
+    string user_file = "", sol_file = "Sol"; // initialise name of user's file and solution file to randomize
+
+    // generates a new random number everytime based on the seed given - system time
+    // Once for user
+    srand(time(0));
+
+    for(int i = 0; i < 10; i++)
+        user_file += 'a' + (rand() % 26);
+    
+    // Second for solution
+    srand(time(0));
+
+    for(int i = 0; i < 10; i++)
+        sol_file += 'a' + (rand() % 26);
+
+    user_path = user_path + user_file + ".cpp";
+    sol_path = sol_path + sol_file + ".cpp";
+
+    string userAnswer = "E", solAnswer = "E";
+
+    // Remove and header files the user may have declared, Currently breaks the program if a header file is declared
+    std::string new_user_func = "";
+    for(std::string::size_type i = 0; i < function.size(); i++)
+    {
+        if (function[i] == '#' && function.substr(i,8).compare("#include") == 0) // if it finds a #include
+        {
+            std::string::size_type j = i;
+
+            while(function[j] != '>')
+                j++;
+
+            i = j+1;
+        }
+        else
+            new_user_func += function[i];        
+    }
+
+    function = new_user_func;
+
+    // Open/create a directory called "testQuestions" in the question server to test user's file and solution file
+    DIR *dir = opendir(new_folder);
+    if (dir)
+    {
+        /* Directory exists. */
+        closedir(dir);
+        chdir(new_folder);
+
+        userAnswer = createAndRunFile((string)user_path, user_file, new_user_func, functionName);
+        solAnswer = createAndRunFile((string)sol_path, sol_file, solFunction, functionName);
+        
+        cout << userAnswer << "\n\n" << solAnswer << "\n";
+    }
+    else if (ENOENT == errno)
+    {
+        /* Directory does not exist. */
+        mkdir(new_folder, 0700);
+        chdir(new_folder);
+
+        userAnswer = createAndRunFile((string)user_path, user_file, new_user_func, functionName);
+        solAnswer = createAndRunFile((string)sol_path, sol_file, solFunction, functionName);
+
+        cout << userAnswer << "\n\n" << solAnswer << "\n";
+    }
+    else
+    {
+        /* opendir() failed for some other reason. */
+        perror("OPEN_DIR ERROR");
+    }
+    
+    if (userAnswer.compare("E") == 0 || solAnswer.compare("E") == 0) // Check for errors
+        return "E";
+    else if(userAnswer.compare(solAnswer) == 0) // If user's answer is the same as solution, return true "T"
+        return "T";
+    else 
+        return "F";
+
 }
 
 std::string routeResponse(std::string content)
