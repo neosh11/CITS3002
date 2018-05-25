@@ -1,9 +1,15 @@
-m#Where does the execution of the program start?#user defined function#main function#void function#none of the above#1
+m#Where does the execution of the program start?#User-defined function#main function#void function#None of the above#1
 m#What is the index number of the last element of an array with 9 elements?#9#8#0#Programmer defined#1
 m#How many specifiers are present in access specifiers in class?#1#2#3#4#2
-m#The constants are also called as#const#preprocessor#literals#none of the above#2
-m#Which of the following is used to terminate the function declaration?#a bracket#a colon#a semicolon#none of the above#2
+m#The constants are also called as#const#Preprocessor#Literals#None of the above#2
+m#Which of the following is used to terminate the function declaration?#A bracket#A colon#A semicolon#None of the above#2
 m#How many max number of arguments can present in function in c99 compiler?#99#90#102#127#3
-p#Write a program to print all prime numbers until 20#void primeNumbers()#1
-p#Write a program to print \"Hello World\"#void helloWorld()#2
-p#Write a program to print \"SSL is cool\"#void ssl()#3
+m#True or False? A constructor can be virtual.#True#False#None of the above#All of the above#1
+m#Which of the following symbols are permitted within the identifier name?#$#@#_#.#2
+m#Which of the following is not a correct variable type?#float#int#real#double#2
+m#What is the correct value to return to the operating system upon the successful completion of a program?#-1#1#Programs do not return a value.#0#3
+p#Write a C/C++ function to print all prime numbers until 20. Each number must be displayed on it's own line. Start your function using the function declaration given below:#void primeNumbers()#1
+p#Write a C/C++ function to print \"Hello World\". Start your function using the function declaration given below:#void helloWorld()#2
+p#Write a C/C++ function to print \"SSL is cool\". Start your function using the function declaration given below:#void ssl()#3
+p#Write a C/C++ function to print all the positive divisors of the number 20. Each of the divisors must be displayed on it's own line. Start your function using the function declaration given below:#void divisorOf20()#4
+p#Write a c/C++ function to print the first five multiples of the number 5. Each of the multiples must be displayed on it's own line. Start your function using the function declaration given below:#void multiplesOf5()#5
