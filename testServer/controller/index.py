@@ -1,6 +1,15 @@
 import json
-import controller.auth
+import sys
 from controller import questionServe
+if(sys.argv.__contains__("ip")):
+  ip = input("Enter IP: ")
+  port = input("Enter Port: ")
+  questionServe.IP = ip
+  questionServe.PORT = port
+  questionServe.server_address = (ip, int(port))
+
+import controller.auth
+
 
 public_directory=""
 views_directory=""
