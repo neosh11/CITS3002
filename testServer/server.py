@@ -1,5 +1,6 @@
 #!/usr/bin/env python
- 
+import atexit
+import sys
 
 import controller.index
 import controller.api
@@ -89,15 +90,21 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 
     return
 
+def saveBeforeExit():
+  print("Saving user states")
+  controller.auth.dumpMap(USER_MAP, "./resources/user_dump")
+  print("Saved user states")
+  print("Exiting server")
+
 def run(style):
   global USER_MAP
   if(style == None):
     USER_MAP = controller.auth.init_users_map("./resources/user")
-    print(USER_MAP)
     controller.auth.dumpMap(USER_MAP, "./resources/user_dump")
   else:
     USER_MAP = controller.auth.loadMapFromDump("./resources/user_dump")
 
+  atexit.register(saveBeforeExit)
   print('Trying to start server')
   # Server settings
   server_address = ('0.0.0.0', PORT)
@@ -108,6 +115,8 @@ def run(style):
   httpd.socket = ssl.wrap_socket (httpd.socket, certfile= CURRENT_DIR+'/certificates/certificate.pem', server_side=True, keyfile=CURRENT_DIR+"/certificates/key.pem")
   print('Serving on port %d...'%(PORT))
   httpd.serve_forever()
- 
- 
-run(style = None)
+
+style = None
+if(sys.argv.__contains__("load")):
+  style ="a"
+run(style)

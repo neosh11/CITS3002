@@ -70,7 +70,6 @@ def postLogin(obj, USER_MAP):
     try:
       content_length = int(obj.headers['Content-Length']) # <--- Gets the size of data
       post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data 
-      print(post_data)
       rev = controller.auth.login(USER_MAP,post_data["uname"], post_data["password"])
     except:
       rev = None
@@ -89,7 +88,6 @@ def setQuestion(obj, USER_MAP):
       post_data = json.loads(obj.rfile.read(content_length).decode()) # <--- Gets the data
 
       ##Authorization
-      print(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"]))
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           USER_MAP[post_data["uname"]].setCurrentQuestion(post_data["question"])
           rev = True
@@ -112,11 +110,8 @@ def getQuestionData(obj, USER_MAP):
       ##Authorization
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           i = USER_MAP[post_data["uname"]].currentQuestion
-          print(USER_MAP[post_data["uname"]].currentQuestion)
           qnum = USER_MAP[post_data["uname"]].questionSet[i]
-          print(qnum["qnum"])
           rev = questionServe.getQuestion(qnum["qnum"])
-          print(rev)
           jsonrev = json.loads(rev)
           jsonrev["tries"] = qnum["tries"]
           jsonrev["ans"] = qnum["ans"]
@@ -148,10 +143,8 @@ def markQuestion(obj, USER_MAP):
               jsonrev["ans"] = qnum["ans"]
               jsonrev["correct"] = qnum["correct"]
               rev = json.dumps(jsonrev)
-              print(rev)
           else:
             rev = questionServe.markQuestion(qnum["qnum"], post_data["option"])
-            print(rev)
             jsonrev = json.loads(rev)
             if(jsonrev["value"] == "T"):
                 jsonrev["correct"] = qnum["correct"] = True
@@ -179,7 +172,6 @@ def moveQuestion(obj, USER_MAP):
       ##Authorization
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           numQuestions = controller.auth.CHOOSE_Q
-          print(post_data)
           rev = "{}"
           jsonrev = json.loads(rev)
           if(post_data["val"] >= 0):
@@ -210,11 +202,8 @@ def getPQuestionData(obj, USER_MAP):
       ##Authorization
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           i = USER_MAP[post_data["uname"]].currentPQuestion
-          print(USER_MAP[post_data["uname"]].currentPQuestion)
           qnum = USER_MAP[post_data["uname"]].pQuestionSet[i]
-          print(qnum["qnum"])
           rev = questionServe.getPQuestion(qnum["qnum"])
-          print(rev)
           jsonrev = json.loads(rev)
           jsonrev["tries"] = qnum["tries"]
           jsonrev["ans"] = qnum["ans"]
@@ -246,10 +235,8 @@ def markPQuestion(obj, USER_MAP):
               jsonrev["ans"] = qnum["ans"]
               jsonrev["correct"] = qnum["correct"]
               rev = json.dumps(jsonrev)
-              print(rev)
           else:
             rev = questionServe.markPQuestion(qnum["qnum"], post_data["code"])
-            print(rev)
             jsonrev = json.loads(rev)
             if(jsonrev["value"] == "T"):
                 jsonrev["correct"] = qnum["correct"] = True
@@ -276,7 +263,6 @@ def movePQuestion(obj, USER_MAP):
       ##Authorization
       if(controller.auth.verify(USER_MAP, post_data["uname"], post_data["token"])):
           numQuestions = controller.auth.CHOOSE_P_Q
-          print(post_data)
           rev = "{}"
           jsonrev = json.loads(rev)
           if(post_data["val"] >= 0):
