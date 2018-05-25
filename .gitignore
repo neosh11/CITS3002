@@ -1,15 +1,21 @@
-__pycache__
 
 .DS_Store
 
-certificates
-
 .vscode
+
+# test server files
+
+*.pyc
+__pycache__
+certificates
+resources/user_dump
+
 
 # question server files
 *.o
 *.out
 server
+olives
 test
 
 hax.cpp
