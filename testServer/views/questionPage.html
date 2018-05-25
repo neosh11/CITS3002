@@ -29,7 +29,8 @@
 
             <div>
                 Number of tries :
-                <span id="tries"></span>
+                <span id="tries"></span><br/>
+                <span id="mark"></span>
                 <br/>
             </div>
 
@@ -57,9 +58,12 @@
         document.getElementById("tries").innerHTML = tries;
         color = correct ? "green" : "red";
         document.getElementById(("o" + last)).style.backgroundColor = color;
+        mark = correct ? 4 - tries : 0;
+        document.getElementById("mark").innerHTML = `mark: ${mark}`;
         }
         else{
             document.getElementById("tries").innerHTML = 0;
+            document.getElementById("mark").innerHTML = "";
         }
     }
 

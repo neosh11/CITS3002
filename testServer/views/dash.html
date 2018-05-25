@@ -19,12 +19,14 @@
         <h3>
             Progress
         </h3>
+        <div id="outof"></div>
         <div id="results"></div>
         <div id="remaining"></div>
         <a href="/question">MCQ Questions!</a>
         <br/>
 
         <hr>
+        <div id="poutof"></div>
         <div id="presults"></div>
         <div id="premaining"></div>
         <a href="/pquestion">Programming question!</a>
@@ -45,6 +47,7 @@
                     var response = JSON.parse(xhr.responseText);
                     var remain = 0;
                     var percent = response.total / response.out * 100;
+                    document.getElementById("outof").innerHTML = `${response.total}/${response.out}`;
                     document.getElementById("results").innerHTML = percent.toFixed(2) + '%';
                     
                     response.done.forEach(element => {
@@ -54,6 +57,7 @@
 
                     //Programming
                     percent = response.ptotal / response.pout * 100;
+                    document.getElementById("poutof").innerHTML = `${response.ptotal}/${response.pout}`;
                     document.getElementById("presults").innerHTML = percent.toFixed(2) + '%';
                     remain = 0;
                     response.pdone.forEach(element => {
