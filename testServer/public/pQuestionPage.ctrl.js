@@ -4,16 +4,19 @@ function updateStats(last, correct, tries) {
         if (correct) {
             document.getElementById("status").innerHTML = "Right";
             document.getElementById("status").style.backgroundColor = "green";
+            document.getElementById("mark").innerHTML = `mark: ${4 - tries}`;
         }
         else {
             document.getElementById("status").innerHTML = "WRONG WRONG WRONG WRONG!!!";
             document.getElementById("status").style.backgroundColor = "red";
+            document.getElementById("mark").innerHTML = `mark: ${0}`;
         }
     }
     else {
         document.getElementById("tries").innerHTML = 0;
         document.getElementById("status").innerHTML = "";
         document.getElementById("status").style.backgroundColor = null;
+        document.getElementById("mark").innerHTML = "";
 
     }
 }
