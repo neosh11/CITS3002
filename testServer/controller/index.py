@@ -11,8 +11,8 @@ if(sys.argv.__contains__("ip")):
 import controller.auth
 
 
-public_directory=""
-views_directory=""
+public_directory = ""
+views_directory = ""
 
 def getHome(obj):
     obj.send_response(200)

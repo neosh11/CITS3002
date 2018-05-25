@@ -4,6 +4,7 @@ import sys
 
 import controller.index
 import controller.api
+import controller.index
 import controller.auth
 
 import string,cgi,time
@@ -35,7 +36,7 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
     # Security for the filesystem
     # If x is not contained within public folder
     # Get absolute path of x and compare to absolute path of public directory
-
+  
     # Controllers
     path_fix = str(Path(self.path))
     if( path_fix =="/api/test"):
@@ -58,7 +59,7 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
     else:
       controller.index.getError(self)
     
-    print(Path(self.path).parts)
+    #print(Path(self.path).parts)
     return
 
   def do_POST(self):
